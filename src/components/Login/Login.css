@@ -24,7 +24,8 @@
   font-size: 17px;
   display: block;
 }
-.group input:focus ~ label {
+.group input:focus ~ label, 
+input:valid ~ label {
   top: 10px;
   font-size: 14px;
   color: orange;

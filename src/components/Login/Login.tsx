@@ -13,7 +13,9 @@ function Login() {
         <i className="fas fa-fish"></i>
         
         <h1>Log in to Fisher</h1>
-        <form>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+        }}>
           <div className="group">
             <div className="input-container">
               <input type="email" required></input>
