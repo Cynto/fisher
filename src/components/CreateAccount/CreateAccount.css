@@ -2,12 +2,13 @@
   min-height: 400px;
   max-width: 80vw;
   min-width: 600px;
+  
   top: 50px;
   position: absolute;
   background: white;
   border-radius: 16px;
   z-index: 999;
-  border: 1px solid grey;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,6 +24,9 @@
   flex-direction: column;
   align-items: center;
 
+}
+.create-account-content-container .login-button {
+  margin-bottom: 40px;
 }
 .close-create-account {
   position: absolute;
