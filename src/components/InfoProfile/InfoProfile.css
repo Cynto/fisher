@@ -1,0 +1,44 @@
+.profile-info-container {
+  display: flex;
+}
+
+.left-info-container {
+  border: 1px solid grey;
+  width: 80%;
+  margin-left: 15px;
+}
+.profile-pic-container {
+  width: 150px;
+  height: 50px;
+}
+.profile-pic-container img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  position: relative;
+  top: -150%;
+  border: 3px solid white;
+}
+.name-username-container {
+
+}
+.name-username-container h3 {
+  margin-bottom: 0;
+}
+.name-username-container p {
+  margin-top: 0;
+  color: gray;
+  font-size: 14px;
+}
+.joined-container {
+  display: flex;
+}
+.joined-container p {
+  margin-top: 0;
+  margin-left: 5px;
+  color: gray;
+  font-size: 14px;
+}
+.joined-container i {
+  color: gray;
+}

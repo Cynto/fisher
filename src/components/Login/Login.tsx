@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import './Login.css';
-import { auth } from '../../Firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import CreateAccount from '../CreateAccount/CreateAccount';
 import { useHistory } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../Firebase';
+import CreateAccount from '../CreateAccount/CreateAccount';
 
 function Login() {
   const emailRef = useRef(document.createElement('input'));
@@ -12,7 +12,7 @@ function Login() {
   const [userNotFound, setUserNotFound] = useState(false);
   const [wrongPassword, setWrongPassword] = useState(false);
 
-  let history = useHistory();
+  const history = useHistory();
   const handleLogin = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
@@ -21,7 +21,7 @@ function Login() {
     setWrongPassword(false);
 
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(() => {
         history.push('/');
       })
       .catch((error) => {
@@ -48,12 +48,12 @@ function Login() {
       {!hasAccount ? <CreateAccount setHasAccount={setHasAccount} /> : null}
 
       <div className="login-content-container">
-        <i className="fas fa-fish"></i>
+        <i className="fas fa-fish" />
 
         <h1>Log in to Fisher</h1>
         {userNotFound ? (
           <h3 style={{ color: 'orange' }}>
-            Error: No account with this email exists!{' '}
+            Error: No account with this email exists!
           </h3>
         ) : null}
         {wrongPassword ? (
@@ -66,24 +66,23 @@ function Login() {
         >
           <div className="group">
             <div className="input-container">
-              <input
-                id="email-input"
-                ref={emailRef}
-                type="email"
-                required
-              ></input>
-              <label>Email</label>
+              <label htmlFor="email-input">
+                <input id="email-input" ref={emailRef} type="email" required />
+                <p>Email</p>
+              </label>
             </div>
           </div>
           <div className="group">
             <div className="input-container">
-              <input
-                id="password-input"
-                ref={passwordRef}
-                type="password"
-                required
-              ></input>
-              <label>Password</label>
+              <label htmlFor="password-input">
+                <input
+                  id="password-input"
+                  ref={passwordRef}
+                  type="password"
+                  required
+                />
+                <p>Password</p>
+              </label>
             </div>
           </div>
 
@@ -94,9 +93,15 @@ function Login() {
         <div className="no-account">
           No account?
           <span
+            key={1}
             onClick={() => {
               setHasAccount(false);
             }}
+            onKeyDown={() => {
+              setHasAccount(false);
+            }}
+            role="link"
+            tabIndex={0}
           >
             Sign up for Fisher
           </span>

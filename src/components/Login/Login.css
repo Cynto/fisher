@@ -25,20 +25,20 @@
   font-size: 17px;
   display: block;
 }
-.group input:focus ~ label, 
-input:valid ~ label {
-  top: 10px;
+.group input:focus ~ p, 
+input:valid ~ p {
+  top: -5px;
   font-size: 14px;
   color: orange;
 }
-.group label {
+.group p {
   color: #999;
   font-size: 16px;
   font-weight: normal;
   position: absolute;
   pointer-events: none;
   left: 8px;
-  top: 18px;
+  top: 5px;
   transition: 0.2s ease all;
   -moz-transition: 0.2s ease all;
   -webkit-transition: 0.2s ease all;
