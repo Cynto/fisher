@@ -40,16 +40,15 @@ function CreateAccount(props: any) {
       where('usernameLower', '==', usernameLower),
     );
     const querySnapshot = await getDocs(q);
+    // eslint-disable-next-line no-unused-vars
     querySnapshot.forEach((snap) => {
       taken = true;
-      console.log(snap);
     });
     setDifferentPassword(false);
     if (!taken) {
       if (password === confirmPassword) {
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
-            console.log(userCredential.user);
             const { user } = userCredential;
             const time = Timestamp.now();
 
@@ -60,6 +59,10 @@ function CreateAccount(props: any) {
               email,
               followers: [],
               following: [],
+              profilePic:
+                'https://firebasestorage.googleapis.com/v0/b/fisher-d459b.appspot.com/o/images%2Fdefault-profile-pic.jpg?alt=media&token=fb5374e5-67e3-4720-8951-6d8e665fd1d5',
+              bannerPic:
+                'https://firebasestorage.googleapis.com/v0/b/fisher-d459b.appspot.com/o/images%2Fdefault-banner-pic.jpg?alt=media&token=6dfc6e88-ee01-40a2-9462-c628ee15c83a',
               uid: user.uid,
               createdAt: time,
             });
@@ -72,7 +75,8 @@ function CreateAccount(props: any) {
           });
       } else {
         setDifferentPassword(true);
-        const confirmPasswordInput: any = document.getElementById('confirm-password');
+        const confirmPasswordInput: any =
+          document.getElementById('confirm-password');
         confirmPasswordInput.value = '';
       }
     } else {

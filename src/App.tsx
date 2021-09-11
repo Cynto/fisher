@@ -22,7 +22,9 @@ function App() {
   useEffect(() => {
     fillProfileArray();
   }, []);
-
+  useEffect(() => {
+    console.log(profileArray)
+  }, [profileArray])
   return (
     <Router>
       <div className="App">
@@ -32,7 +34,11 @@ function App() {
           </Route>
           {profileArray.map((profile: any) => (
             <Route key={profile.uid} exact path={`/${profile.username}`}>
-              <Profile profile={profile} />
+              <Profile
+                profileArray={profileArray}
+                setProfileArray={setProfileArray}
+                profile={profile}
+              />
             </Route>
           ))}
         </Switch>

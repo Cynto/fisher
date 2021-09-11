@@ -1,8 +1,11 @@
+.profile-top-container {
+  height: 253px;
+}
 .profile-top {
   display: flex;
   align-items: center;
   height: 53px;
-  margin-top: 10px;
+ 
 }
 .profile-top p {
   color: gray;

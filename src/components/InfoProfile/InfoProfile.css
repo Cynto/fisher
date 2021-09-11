@@ -3,7 +3,6 @@
 }
 
 .left-info-container {
-  border: 1px solid grey;
   width: 80%;
   margin-left: 15px;
 }
@@ -20,14 +19,13 @@
   border: 3px solid white;
 }
 .name-username-container {
-
 }
 .name-username-container h3 {
   margin-bottom: 0;
 }
 .name-username-container p {
   margin-top: 0;
-  color: gray;
+  color: rgb(80, 80, 80);
   font-size: 14px;
 }
 .joined-container {
@@ -36,9 +34,70 @@
 .joined-container p {
   margin-top: 0;
   margin-left: 5px;
-  color: gray;
+  color: rgb(80, 80, 80);
   font-size: 14px;
 }
 .joined-container i {
-  color: gray;
+  color: rgb(80, 80, 80);
+}
+.followers-following-container {
+  display: flex;
+  column-gap: 15px;
+}
+.following-container {
+  display: flex;
+}
+.followers-container {
+  display: flex;
+}
+.followers-following-container p {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  margin-left: 5px;
+  color: rgb(80, 80, 80);
+}
+.followers-following-container h4 {
+  margin: 0;
+}
+
+.right-info-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 20%;
+}
+
+.edit-profile-button {
+  margin-top: 15px;
+  padding: 7px 10px;
+  border-radius: 50px;
+  font-size: 15px;
+  cursor: pointer;
+  border: 1px solid grey;
+  font-weight: 700;
+  background: none;
+}
+.edit-profile-button:hover {
+  background: rgb(231, 231, 231);
+}
+
+
+.profile-button {
+  padding: 7px 16px;
+  border-radius: 50px;
+  background: orange;
+  border: none;
+  min-width: 36px;
+  min-height: 36px;
+  margin-top: 15px;
+  cursor: pointer;
+  font-weight: bolder;
+  font-size: 15px;
+  color: white;
+
+}
+.profile-button:hover {
+  background: rgb(216, 141, 2);
+
 }

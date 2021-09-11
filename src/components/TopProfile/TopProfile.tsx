@@ -5,7 +5,7 @@ import './TopProfile.css';
 function TopProfile(props: any) {
   const { profile } = props;
   return (
-    <div>
+    <div className="profile-top-container">
       <div className="profile-top">
         <div className="top-button-container">
           <Link to="/home">
@@ -22,7 +22,7 @@ function TopProfile(props: any) {
       </div>
       <img
         className="profile-banner"
-        src="https://www.bannerbatterien.com/upload/filecache/Banner-Batterien-Windrder2-web_06b2d8d686e91925353ddf153da5d939.webp"
+        src={profile.bannerPic}
         alt="profile-banner"
       />
     </div>
