@@ -68,6 +68,8 @@ function Login() {
             <div className="input-container">
               <label htmlFor="email-input">
                 <input id="email-input" ref={emailRef} type="email" required />
+                <div className="border-div" />
+
                 <p>Email</p>
               </label>
             </div>
@@ -81,6 +83,8 @@ function Login() {
                   type="password"
                   required
                 />
+                <div className="border-div" />
+
                 <p>Password</p>
               </label>
             </div>

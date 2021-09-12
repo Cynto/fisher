@@ -82,7 +82,6 @@
   background: rgb(231, 231, 231);
 }
 
-
 .profile-button {
   padding: 7px 16px;
   border-radius: 50px;
@@ -95,9 +94,33 @@
   font-weight: bolder;
   font-size: 15px;
   color: white;
-
 }
 .profile-button:hover {
   background: rgb(216, 141, 2);
+}
+.follow-unfollow {
+  padding: 7px 16px;
+  min-width: 105px;
+  min-height: 36px;
+  margin-top: 15px;
+  cursor: pointer;
+  font-weight: bolder;
+  font-size: 15px;
 
+  border-radius: 50px;
+  border: 1px solid grey;
+}
+.unfollow {
+  color: red;
+}
+.unfollow-prompt-container {
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 320px;
+  height: 300px;
+  z-index: 1000;
+  background: white;
 }

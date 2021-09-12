@@ -117,6 +117,7 @@ function CreateAccount(props: any) {
             <div className="input-container">
               <label htmlFor="create-name">
                 <input id="create-name" ref={nameRef} type="text" required />
+                <div className="border-div" />
                 <p>Name</p>
               </label>
             </div>
@@ -131,6 +132,7 @@ function CreateAccount(props: any) {
                   type="text"
                   required
                 />
+                <div className="border-div" />
                 <p>Username</p>
               </label>
             </div>
@@ -139,6 +141,7 @@ function CreateAccount(props: any) {
             <div className="input-container">
               <label htmlFor="create-email">
                 <input id="create-email" ref={emailRef} type="email" required />
+                <div className="border-div" />
                 <p>Email</p>
               </label>
             </div>
@@ -152,6 +155,7 @@ function CreateAccount(props: any) {
                   type="password"
                   required
                 />
+                <div className="border-div" />
                 <p>Password</p>
               </label>
             </div>
@@ -165,6 +169,7 @@ function CreateAccount(props: any) {
                   type="password"
                   required
                 />
+                <div className="border-div" />
                 <p>Confirm Password</p>
               </label>
             </div>

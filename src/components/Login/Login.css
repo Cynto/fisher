@@ -25,7 +25,7 @@
   font-size: 17px;
   display: block;
 }
-.group input:focus ~ p, 
+.group input:focus ~ p,
 input:valid ~ p {
   top: -5px;
   font-size: 14px;
@@ -47,10 +47,21 @@ input:valid ~ p {
   height: 58px;
   width: 336px;
 
-  border: 1px solid rgb(207, 217, 222);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+}
+.border-div {
+  position: absolute;
+  top: 0;
+  width: 336px;
+  height: 100%;
+  border: 1px solid rgb(207, 217, 222);
+  pointer-events: none;
+}
+label input:focus ~ .border-div,
+input:valid ~ .border-div {
+  border-color: orange;
 }
 .login-button {
   width: 344px;
