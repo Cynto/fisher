@@ -124,3 +124,11 @@
   z-index: 1000;
   background: white;
 }
+.bio-container {
+  width: 120%;
+}
+.bio-container p {
+  font-size: 15px;
+  overflow-wrap: break-word;
+  line-height: 20px;
+}

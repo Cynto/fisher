@@ -25,8 +25,8 @@
   font-size: 17px;
   display: block;
 }
-.group input:focus ~ p,
-input:valid ~ p {
+.group .login-input:focus ~ p,
+.login-input:valid ~ p {
   top: -5px;
   font-size: 14px;
   color: orange;

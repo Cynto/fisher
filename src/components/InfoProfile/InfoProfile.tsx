@@ -147,6 +147,9 @@ function InfoProfile(props: any) {
           <h3>{profile.name}</h3>
           <p>{`@${profile.username}`}</p>
         </div>
+        <div className="bio-container">
+          <p>{profile.bio}</p>
+        </div>
         <div className="joined-container">
           <i className="fas fa-calendar-week" />
           <p>{`Joined ${createdAt}`}</p>

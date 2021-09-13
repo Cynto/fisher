@@ -1,6 +1,6 @@
 .edit-profile-container {
   width: 600px;
-  height: 500px;
+  min-height: 500px;
   position: absolute;
   z-index: 999;
   background: white;
@@ -31,21 +31,7 @@
   align-items: center;
   width: 50%;
 }
-.save-container {
-  width: 50%;
-  display: flex;
-  justify-content: flex-end;
-}
-.save-container button {
-  background: black;
-  color: white;
-  font-weight: bolder;
-  font-size: 15px;
-  min-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  border-radius: 20px;
-}
+
 .edit-banner-container {
   width: 100%;
   height: 194px;
@@ -60,13 +46,11 @@
   background: gray;
   z-index: 998;
   opacity: 0.55;
-
 }
 .edit-banner-container img {
   width: 581px;
   height: 194px;
   position: absolute;
-  
 }
 
 .edit-banner-container label {
@@ -80,6 +64,7 @@
 }
 .edit-inner-container {
   width: 95%;
+  height: 70%;
   margin-right: auto;
   margin-left: auto;
 }
@@ -116,4 +101,107 @@
 #pic-upload {
   opacity: 0;
   width: 1px;
+}
+
+.edit-inner-container form {
+  margin-top: 50px;
+}
+.edit-inner-container .input-container {
+  width: 100%;
+}
+.edit-inner-container .input-container {
+}
+.edit-inner-container .edit-border-div {
+  border-radius: 7px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+
+  height: 100%;
+  border: 1px solid rgb(207, 217, 222);
+  pointer-events: none;
+}
+.edit-group {
+  position: relative;
+  margin-bottom: 30px;
+}
+.edit-group input {
+  outline-style: none;
+
+  padding-top: 12px;
+  padding-bottom: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border: none;
+  font-size: 16px;
+  display: block;
+}
+.edit-group input:focus ~ p,
+textarea:focus ~ p {
+  top: -5px;
+  font-size: 14px;
+  color: orange;
+}
+.edit-group p {
+  color: #999;
+  font-size: 14px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 8px;
+  top: -5px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+.edit-group input:focus ~ .edit-border-div,
+textarea:focus ~ .edit-border-div {
+  border: 1px solid orange;
+}
+.group-textarea {
+  margin-bottom: 10px;
+}
+.text-area-container {
+  height: 120px;
+}
+
+#bio-border {
+  height: 100px;
+}
+#bio-textarea {
+  border: none;
+  margin-top: 28px;
+  margin-left: 7px;
+  margin-right: 7px;
+  resize: none;
+  min-height: 90px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+textarea:focus {
+  outline: none;
+  appearance: none;
+}
+.save-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.save-container button {
+  border: none;
+  background: black;
+  color: white;
+  font-weight: bolder;
+  font-size: 15px;
+  min-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.save-container button:hover {
+  background: rgb(37, 37, 37);
+
 }

@@ -116,7 +116,13 @@ function CreateAccount(props: any) {
           <div className="group">
             <div className="input-container">
               <label htmlFor="create-name">
-                <input id="create-name" ref={nameRef} type="text" required />
+                <input
+                  className="login-input"
+                  id="create-name"
+                  ref={nameRef}
+                  type="text"
+                  required
+                />
                 <div className="border-div" />
                 <p>Name</p>
               </label>
@@ -127,6 +133,7 @@ function CreateAccount(props: any) {
               <label htmlFor="create-username">
                 {' '}
                 <input
+                  className="login-input"
                   id="create-username"
                   ref={usernameRef}
                   type="text"
@@ -140,7 +147,13 @@ function CreateAccount(props: any) {
           <div className="group">
             <div className="input-container">
               <label htmlFor="create-email">
-                <input id="create-email" ref={emailRef} type="email" required />
+                <input
+                  className="login-input"
+                  id="create-email"
+                  ref={emailRef}
+                  type="email"
+                  required
+                />
                 <div className="border-div" />
                 <p>Email</p>
               </label>
@@ -150,6 +163,7 @@ function CreateAccount(props: any) {
             <div className="input-container">
               <label htmlFor="create-password">
                 <input
+                  className="login-input"
                   id="create-password"
                   ref={passwordRef}
                   type="password"
@@ -164,6 +178,7 @@ function CreateAccount(props: any) {
             <div className="input-container">
               <label htmlFor="confirm-password">
                 <input
+                  className="login-input"
                   id="confirm-password"
                   ref={confirmPasswordRef}
                   type="password"

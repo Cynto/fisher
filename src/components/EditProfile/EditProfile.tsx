@@ -8,6 +8,8 @@ function EditProfile(props: any) {
   const { profile, setEditProfile, setProfileArray } = props;
   const bannerRef = useRef(document.createElement('input'));
   const profilePicRef = useRef(document.createElement('input'));
+  const nameRef = useRef(document.createElement('input'))
+  const bioRef = useRef(document.createElement('textarea'))
 
   const changeURL = async (bannerOrProfile: string, url: string) => {
     const userRef = doc(db, 'users', profile.uid);
@@ -22,12 +24,14 @@ function EditProfile(props: any) {
     }
     const userDoc = await getDoc(doc(db, 'users', profile.uid));
     const userObject = userDoc.data();
-    setProfileArray((oldArray: any[]) => oldArray.map((profileObject) => {
-      if (profileObject.uid === profile.uid) {
-        return userObject;
-      }
-      return profileObject;
-    }));
+    setProfileArray((oldArray: any[]) =>
+      oldArray.map((profileObject) => {
+        if (profileObject.uid === profile.uid) {
+          return userObject;
+        }
+        return profileObject;
+      }),
+    );
   };
 
   const handleUpload = (bannerOrProfile: string) => {
@@ -61,6 +65,32 @@ function EditProfile(props: any) {
     }
   };
 
+  const handleFormSubmit = async () => {
+    const name = nameRef.current.value;
+    const bio = bioRef.current.value;
+    const userRef = doc(db, 'users', profile.uid);
+    if(name !== '' && name !== profile.name) {
+      await updateDoc(userRef, {
+        name
+      })
+    }
+    if(bio !== '' && bio !== profile.bio) {
+      await updateDoc(userRef, {
+        bio
+      })
+    }
+    const userDoc = await getDoc(doc(db, 'users', profile.uid));
+    const userObject = userDoc.data();
+    setProfileArray((oldArray: any[]) =>
+      oldArray.map((profileObject) => {
+        if (profileObject.uid === profile.uid) {
+          return userObject;
+        }
+        return profileObject;
+      }),
+    );
+  }
+
   return (
     <div className="edit-profile-container">
       <div className="top-edit-container">
@@ -69,10 +99,6 @@ function EditProfile(props: any) {
             X
           </button>
           <h3>Edit Profile</h3>
-        </div>
-
-        <div className="save-container">
-          <button type="button">Save</button>
         </div>
       </div>
       <div className="edit-banner-container">
@@ -102,6 +128,33 @@ function EditProfile(props: any) {
             />
           </label>
         </div>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <div className="edit-group">
+            <div className="input-container">
+              <input ref={nameRef} defaultValue={profile.name} id="name" type="text" />
+              <div className="edit-border-div" />
+              <p>Name</p>
+            </div>
+          </div>
+          <div className="edit-group group-textarea">
+            <div className="input-container text-area-container">
+              <textarea
+                id="bio-textarea"
+                maxLength={160}
+                defaultValue={profile.bio}
+                ref={bioRef}
+              />
+              <div id="bio-border" className="edit-border-div" />
+              <p>Bio</p>
+            </div>
+          </div>
+          <div className="save-container">
+            <button type="submit" onClick={() => {
+              setEditProfile(false)
+              handleFormSubmit()
+            }}>Save</button>
+          </div>
+        </form>
       </div>
     </div>
   );
