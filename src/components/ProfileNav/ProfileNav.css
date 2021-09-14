@@ -1,0 +1,23 @@
+.profile-nav {
+  margin-top: 30px;
+  
+  height: 53px;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.profile-nav a {
+  height: 100%;
+}
+.profile-link {
+  color: rgb(83, 100, 113);
+  text-decoration: none;
+}
+.profile-link-selected {
+  text-decoration: underline;
+  color: black;
+  font-weight: 700;
+  text-underline-offset: 15px;
+  text-decoration-color: orange;
+  text-decoration-thickness: 5px;
+}

@@ -33,7 +33,7 @@ function App() {
             <Login />
           </Route>
           {profileArray.map((profile: any) => (
-            <Route key={profile.uid} exact path={`/${profile.username}`}>
+            <Route key={profile.uid} path={`/${profile.username}`}>
               <Profile
                 profileArray={profileArray}
                 setProfileArray={setProfileArray}

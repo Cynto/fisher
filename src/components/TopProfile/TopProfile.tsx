@@ -17,7 +17,7 @@ function TopProfile(props: any) {
 
         <div className="name-fish">
           <h3>{profile.name}</h3>
-          <p>0 Fish</p>
+          <p>{profile.fish.length} Fish</p>
         </div>
       </div>
       <img
