@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import { storage, db } from '../../Firebase';
@@ -8,8 +9,8 @@ function EditProfile(props: any) {
   const { profile, setEditProfile, setProfileArray } = props;
   const bannerRef = useRef(document.createElement('input'));
   const profilePicRef = useRef(document.createElement('input'));
-  const nameRef = useRef(document.createElement('input'))
-  const bioRef = useRef(document.createElement('textarea'))
+  const nameRef = useRef(document.createElement('input'));
+  const bioRef = useRef(document.createElement('textarea'));
 
   const changeURL = async (bannerOrProfile: string, url: string) => {
     const userRef = doc(db, 'users', profile.uid);
@@ -69,15 +70,15 @@ function EditProfile(props: any) {
     const name = nameRef.current.value;
     const bio = bioRef.current.value;
     const userRef = doc(db, 'users', profile.uid);
-    if(name !== '' && name !== profile.name) {
+    if (name !== '' && name !== profile.name) {
       await updateDoc(userRef, {
-        name
-      })
+        name,
+      });
     }
-    if(bio !== '' && bio !== profile.bio) {
+    if (bio !== '' && bio !== profile.bio) {
       await updateDoc(userRef, {
-        bio
-      })
+        bio,
+      });
     }
     const userDoc = await getDoc(doc(db, 'users', profile.uid));
     const userObject = userDoc.data();
@@ -89,72 +90,85 @@ function EditProfile(props: any) {
         return profileObject;
       }),
     );
-  }
+  };
 
   return (
-    <div className="edit-profile-container">
-      <div className="top-edit-container">
-        <div className="close-title-container">
-          <button onClick={() => setEditProfile(false)} type="button">
-            X
-          </button>
-          <h3>Edit Profile</h3>
+    <div className="absolute-background-div">
+      <div className="edit-profile-container">
+        <div className="top-edit-container">
+          <div className="close-title-container">
+            <Link to={`/${profile.username}`}>
+              <button type="button">X</button>
+            </Link>
+            <h3>Edit Profile</h3>
+          </div>
         </div>
-      </div>
-      <div className="edit-banner-container">
-        <div className="grey-div-banner" />
+        <div className="edit-banner-container">
+          <div className="grey-div-banner" />
 
-        <img src={profile.bannerPic} alt="banner" />
-        <label className="fas fa-camera" htmlFor="banner-upload">
-          <input
-            onChange={() => handleUpload('banner')}
-            ref={bannerRef}
-            id="banner-upload"
-            type="file"
-          />
-        </label>
-      </div>
-      <div className="edit-inner-container">
-        <div className="edit-pic-container">
-          <img src={profile.profilePic} alt="profile" />
-          <div className="grey-div-pic" />
-          <label className="fas fa-camera" htmlFor="pic-upload">
+          <img src={profile.bannerPic} alt="banner" />
+          <label className="fas fa-camera" htmlFor="banner-upload">
             <input
-              onChange={() => handleUpload('profile')}
-              ref={profilePicRef}
-              id="pic-upload"
+              onChange={() => handleUpload('banner')}
+              ref={bannerRef}
+              id="banner-upload"
               type="file"
               accept=".jpeg, .jpg, .png, .webp"
             />
           </label>
         </div>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <div className="edit-group">
-            <div className="input-container">
-              <input ref={nameRef} defaultValue={profile.name} id="name" type="text" />
-              <div className="edit-border-div" />
-              <p>Name</p>
-            </div>
-          </div>
-          <div className="edit-group group-textarea">
-            <div className="input-container text-area-container">
-              <textarea
-                id="bio-textarea"
-                maxLength={160}
-                defaultValue={profile.bio}
-                ref={bioRef}
+        <div className="edit-inner-container">
+          <div className="edit-pic-container">
+            <img src={profile.profilePic} alt="profile" />
+            <div className="grey-div-pic" />
+            <label className="fas fa-camera" htmlFor="pic-upload">
+              <input
+                onChange={() => handleUpload('profile')}
+                ref={profilePicRef}
+                id="pic-upload"
+                type="file"
+                accept=".jpeg, .jpg, .png, .webp"
               />
-              <div id="bio-border" className="edit-border-div" />
-              <p>Bio</p>
+            </label>
+          </div>
+          <form onSubmit={(e) => e.preventDefault()}>
+            <div className="edit-group">
+              <div className="input-container">
+                <input
+                  ref={nameRef}
+                  defaultValue={profile.name}
+                  id="name"
+                  type="text"
+                />
+                <div className="edit-border-div" />
+                <p>Name</p>
+              </div>
             </div>
-          </div>
-          <div className="save-container">
-            <button type="submit" onClick={() => {
-              setEditProfile(false)
-              handleFormSubmit()
-            }}>Save</button>
-          </div>
-        </form>
+            <div className="edit-group group-textarea">
+              <div className="input-container text-area-container">
+                <textarea
+                  id="bio-textarea"
+                  maxLength={160}
+                  defaultValue={profile.bio}
+                  ref={bioRef}
+                />
+                <div id="bio-border" className="edit-border-div" />
+                <p>Bio</p>
+              </div>
+            </div>
+            <div className="save-container">
+              <button
+                type="submit"
+                onClick={() => {
+                  setEditProfile(false);
+                  handleFormSubmit();
+                }}
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

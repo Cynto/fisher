@@ -25,6 +25,7 @@
   font-size: 20px;
   cursor: pointer;
   margin-right: 40px;
+  background: none;
 }
 .close-title-container {
   display: flex;

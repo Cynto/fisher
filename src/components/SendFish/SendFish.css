@@ -1,0 +1,107 @@
+.absolute-background-div {
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  width: 100vw;
+  min-height: 100%;
+  left: 0;
+  z-index: 1000;
+}
+.send-fish-absolute-container {
+  margin-top: 30px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 600px;
+  min-height: 378px;
+  background: white;
+  border-radius: 20px;
+  display: flex;
+}
+.exit-fish-button {
+  border: 0;
+  position: relative;
+
+  border-radius: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  background: none;
+}
+.exit-fish-pic-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 130px;
+  margin-left: 10px;
+}
+.exit-fish-pic-container img {
+  width: 48px;
+  margin-left: 10px;
+}
+.right-compose-fish-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.right-compose-fish-container textarea {
+  outline: none;
+  border: none;
+  margin-top: 73px;
+  min-height: 50px;
+  width: 490px;
+  margin-left: auto;
+  margin-right: auto;
+  resize: none;
+  font-size: 20px;
+  
+}
+.image-upload-container {
+  position: relative;
+}
+.image-upload-container button{
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+.image-upload-container button:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+.right-compose-fish-container img {
+  min-width: 200px;
+  min-height: 200px;
+  max-height: 275px;
+  max-width: 489px;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 30px;
+  margin-bottom: 20px;
+}
+.bottom-right-fish-container {
+  margin-top: auto;
+  margin-bottom: 17px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.bottom-right-fish-container label {
+  font-size: 30px;
+  color: orange;
+  cursor: pointer;
+}
+.bottom-right-fish-container button {
+  background: orange;
+  border: none;
+  min-width: 36px;
+  min-height: 36px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 30px;
+  color: white;
+  font-size: 18px;
+  font-weight: bolder;
+  cursor: pointer;
+}

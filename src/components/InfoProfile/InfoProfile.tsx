@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import format from 'date-fns/format';
+import { Link, useHistory } from 'react-router-dom';
 import { doc, updateDoc, getDoc, setDoc } from 'firebase/firestore';
-import { useHistory } from 'react-router-dom';
+
 import { auth, db } from '../../Firebase';
 import './InfoProfile.css';
 
 function InfoProfile(props: any) {
-  const { profile, setEditProfile } = props;
+  const { profile } = props;
   const [button, setButton] = useState(<button type="button">Follow</button>);
 
   const createdAt = format(profile.createdAt.toDate(), 'MMMM y');
@@ -106,13 +107,11 @@ function InfoProfile(props: any) {
     setButton(follow);
     if (auth.currentUser?.uid === profile.uid) {
       setButton(
-        <button
-          className="edit-profile-button"
-          type="button"
-          onClick={() => setEditProfile(true)}
-        >
-          Edit Profile
-        </button>,
+        <Link to={`/${profile.username}/edit_profile`}>
+          <button className="edit-profile-button" type="button">
+            Edit Profile
+          </button>
+        </Link>,
       );
     }
     if (auth.currentUser) {
@@ -138,7 +137,6 @@ function InfoProfile(props: any) {
   }, []);
   return (
     <div className="profile-info-container">
-      
       <div className="left-info-container">
         <div className="profile-pic-container">
           <img src={profile.profilePic} alt="profile-pic" />
