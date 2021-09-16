@@ -1,0 +1,25 @@
+.main-nav-container {
+  width: 64px;
+  border-right: 1px solid grey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main-nav {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-right: 15px;
+}
+.main-nav i { 
+  margin-bottom: 25px;
+  font-size: 35px;
+  cursor: pointer;
+}
+.orange-hover {
+  color: orange;
+}
+.orange-hover:hover {
+  color: rgb(236, 154, 0);
+}
