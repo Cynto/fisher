@@ -59,6 +59,8 @@ function CreateAccount(props: any) {
               email,
               followers: [],
               following: [],
+              fish: [],
+              likes: [],
               profilePic:
                 'https://firebasestorage.googleapis.com/v0/b/fisher-d459b.appspot.com/o/images%2Fdefault-profile-pic.jpg?alt=media&token=fb5374e5-67e3-4720-8951-6d8e665fd1d5',
               bannerPic:

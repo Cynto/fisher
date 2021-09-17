@@ -1,0 +1,22 @@
+
+.comments-refish-likes-container {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  color: rgb(83, 100, 113);
+  margin-bottom: 15px;
+}
+.comments-refish-likes-container div {
+  display: flex;
+  cursor: pointer;
+}
+.comments-refish-likes-container p {
+  margin: 0;
+  margin-left: 15px;
+}
+.comments-symbol-container:hover, .refish-symbol-container:hover {
+  color: orange;
+}
+.likes-symbol-container:hover {
+  color: red;
+}

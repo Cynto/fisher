@@ -1,0 +1,117 @@
+.total-single-fish-container {
+  border-bottom: 1px solid grey;
+  margin-top: 20px;
+}
+.single-fish-container {
+  display: flex;
+  width: 566px;
+
+  margin-left: 15px;
+}
+.profile-pic-fish-container {
+  height: 100%;
+  width: 48px;
+}
+.profile-pic-fish {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.name-date-container {
+  display: flex;
+  margin-left: 10px;
+}
+.name-date-container h4 {
+  margin: 0;
+
+  font-size: 16px;
+}
+.name-date-container p {
+  margin: 0;
+  margin-left: 5px;
+  font-size: 16px;
+  color: rgb(83, 100, 113);
+}
+.fish-text-container {
+  margin-left: 10px;
+}
+.fish-text-container p {
+  margin-top: 8px;
+  color: rgb(15, 20, 25);
+  font-size: 15px;
+}
+.right-fish-container {
+  width: 518px;
+  position: relative;
+}
+.delete-fish {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+  color: rgb(83, 100, 113);
+  background: none;
+  border: none;
+}
+.delete-fish:hover {
+  color: orange;
+}
+.fish-image-container {
+  width: 100%;
+}
+.fish-image-container img {
+  max-width: 100%;
+  max-height: 290px;
+  border-radius: 20px;
+}
+.delete-prompt-container {
+  width: 300px;
+  max-height: 320px;
+  padding: 32px;
+  background: white;
+  border-radius: 16px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 120px;
+  display: flex;
+  flex-direction: column;
+}
+.delete-prompt-container h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  margin-top: 5px;
+}
+.delete-prompt-container p {
+  color: rgb(83, 100, 113);
+  font-size: 15px;
+  width: 276px;
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+.delete-prompt-container button {
+  min-height: 44px;
+  margin-bottom: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
+  border-radius: 9999px;
+  font-size: 16px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+.prompt-delete-button {
+  background: rgb(244, 33, 46);
+  color: white;
+  border: none;
+
+}
+.prompt-delete-button:hover {
+  background: rgb(211, 0, 14);
+}
+.prompt-cancel-button {
+  background: white;
+  color: black;
+  border: 1px solid rgb(207, 217, 222);
+}
+.prompt-cancel-button:hover {
+  background: rgb(224, 224, 224);
+
+}

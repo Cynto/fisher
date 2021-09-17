@@ -1,17 +1,22 @@
 .absolute-background-div {
   background: rgba(0, 0, 0, 0.4);
-  position: absolute;
+  position: fixed;
   width: 100vw;
   min-height: 100%;
   left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
   z-index: 1000;
+  
 }
+
 .send-fish-absolute-container {
   margin-top: 30px;
   margin-right: auto;
   margin-left: auto;
   width: 600px;
-  min-height: 378px;
+  min-height: 200px;
   background: white;
   border-radius: 20px;
   display: flex;
@@ -51,12 +56,14 @@
   margin-right: auto;
   resize: none;
   font-size: 20px;
-  
+  margin-bottom: 15px;
 }
 .image-upload-container {
   position: relative;
+  margin-right: auto;
+  margin-left: auto;
 }
-.image-upload-container button{
+.image-upload-container button {
   height: 30px;
   width: 30px;
   position: absolute;
@@ -83,7 +90,7 @@
 }
 .bottom-right-fish-container {
   margin-top: auto;
-  margin-bottom: 17px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-evenly;
 }
@@ -91,6 +98,9 @@
   font-size: 30px;
   color: orange;
   cursor: pointer;
+}
+.bottom-right-fish-container label:hover {
+  color: rgb(233, 151, 0);
 }
 .bottom-right-fish-container button {
   background: orange;
@@ -104,4 +114,7 @@
   font-size: 18px;
   font-weight: bolder;
   cursor: pointer;
+}
+.bottom-right-fish-container button:hover {
+  background: rgb(233, 151, 0);
 }

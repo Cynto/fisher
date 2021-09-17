@@ -43,7 +43,7 @@ function App() {
   useEffect(() => {
     console.log(profileArray);
   }, [profileArray]);
-  
+
   return (
     <Router>
       <div className="App">
@@ -63,7 +63,7 @@ function App() {
               <Route path={`/${profile.username}/compose_fish`}>
                 <SendFish userObject={userObject} isHome={false} />
               </Route>
-              <MainNav userObject={userObject}/>
+              <MainNav userObject={userObject} />
               <Profile
                 profileArray={profileArray}
                 setProfileArray={setProfileArray}

@@ -1,51 +1,6 @@
 .all-fish-container {
   
 }
-.total-single-fish-container {
-  border-bottom: 1px solid grey;
-  margin-top: 20px;
-}
-.single-fish-container {
-  display: flex;
-  width: 566px;
-  
-  margin-left: 15px;
-}
-.profile-pic-fish-container {
-  height: 100%;
-  width: 48px;
-}
-.profile-pic-fish {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-}
-.name-date-container {
-  display: flex;
-  margin-left: 10px;
-}
-.name-date-container h4 {
-  margin: 0;
-  
-  font-size: 16px;
-}
-.name-date-container p {
-  margin: 0;
-  margin-left: 5px;
-  font-size: 16px;
-  color: rgb(83, 100, 113);
-}
-.fish-text-container {
-  margin-left: 10px;
-}
-.fish-text-container  p {
-  margin-top: 8px;
-  color: rgb(15, 20, 25);
-  font-size: 15px;
-}
-.right-fish-container {
-  width: 518px;
-}
 .refish-container {
   display: flex;
   margin-left: 40px;
@@ -57,24 +12,4 @@
   margin-left: 15px;
  
 }
-.comments-refish-likes-container {
-  width: 80%;
-  display: flex;
-  justify-content: space-between;
-  color: rgb(83, 100, 113);
-  margin-bottom: 15px;
-}
-.comments-refish-likes-container div {
-  display: flex;
-  cursor: pointer;
-}
-.comments-refish-likes-container p {
-  margin: 0;
-  margin-left: 15px;
-}
-.comments-symbol-container:hover, .refish-symbol-container:hover {
-  color: orange;
-}
-.likes-symbol-container:hover {
-  color: red;
-}
+
