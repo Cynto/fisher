@@ -61,7 +61,7 @@ function App() {
                 />
               </Route>
               <Route path={`/${profile.username}/compose_fish`}>
-                <SendFish userObject={userObject} isHome={false} />
+                <SendFish userObject={userObject} isHome={false} setUserObjectFunc={setUserObjectFunc}/>
               </Route>
               <MainNav userObject={userObject} />
               <Profile

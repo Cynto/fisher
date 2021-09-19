@@ -1,14 +1,51 @@
 import React, { useState } from 'react';
-import ProfileFishStats from '../ProfileFishStats/ProfileFishStats';
+import {
+  getDoc,
+  doc,
+  where,
+  collection,
+  query,
+  getDocs,
+  setDoc,
+  deleteDoc,
+} from 'firebase/firestore';
 
+import { db } from '../../Firebase';
+import ProfileFishStats from '../ProfileFishStats/ProfileFishStats';
 import './SingleFish.css';
 
 function SingleFish(props: any) {
-  const { profile, userObject, setUserObjectFunc, item } = props;
+  const { profile, userObject, setUserObjectFunc, item, fillProfileFishArray } =
+    props;
   const [deletePrompt, setDeletePrompt] = useState(false);
 
-  const handleDelete = () => {};
-  console.log(handleDelete);
+
+  const handleDelete = async () => {
+    const indexToDeleteFish = userObject.fish.findIndex(
+      (ele: any) => ele.fishID === item.fishID,
+    );
+    const newUserObject = userObject;
+    newUserObject.fish.splice(indexToDeleteFish, 1);
+    setDoc(doc(db, 'users', newUserObject.uid), newUserObject);
+
+    const itemRef = doc(db, 'fish', item.fishID);
+    const itemDoc = await getDoc(itemRef);
+    const itemObject = itemDoc.data();
+    await itemObject?.likes.forEach(async (element: any) => {
+      const q = query(
+        collection(db, 'users'),
+        where('username', '==', element),
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((userDoc: any) => {
+        const user = userDoc.data();
+        const indexToDelete = user.likes.indexOf(item.fishID);
+        user.likes.splice(indexToDelete, 1);
+        setDoc(doc(db, 'users', user.uid), user);
+      });
+    });
+    deleteDoc(itemRef);
+  };
   return (
     <div className="total-single-fish-container">
       {deletePrompt ? (
@@ -20,9 +57,16 @@ function SingleFish(props: any) {
               timeline of any accounts that follow you, and from Twitter search
               results.{' '}
             </p>
-            <button type="button" className="prompt-delete-button" >Delete</button>
-            <button type="button" className="prompt-cancel-button" style={{}}>Cancel</button>
-
+            <button
+              type="button"
+              className="prompt-delete-button"
+              onClick={async () => {await handleDelete(); setDeletePrompt(false); fillProfileFishArray()}}
+            >
+              Delete
+            </button>
+            <button type="button" className="prompt-cancel-button" onClick={() => setDeletePrompt(false)}>
+              Cancel
+            </button>
           </div>
         </div>
       ) : null}
@@ -42,16 +86,23 @@ function SingleFish(props: any) {
           />
         </div>
         <div className="right-fish-container">
-          <button
-            className="fas fa-trash delete-fish"
-            type="button"
-            onClick={() => setDeletePrompt(true)}
-          >
-            {' '}
-          </button>
+          {userObject.fish.some(
+            (element: any) => element.fishID === item.fishID,
+          ) ? (
+            <button
+              className="fas fa-trash delete-fish"
+              type="button"
+              onClick={() => setDeletePrompt(true)}
+            >
+              {' '}
+            </button>
+          ) : null}
+
           <div className="name-date-container">
             <h4>{item.name}</h4>
             <p>@{item.username}</p>
+            <span>·</span>
+            <p>{item.date}</p>
           </div>
           <div className="fish-text-container">
             <p>{item.fishText}</p>
@@ -65,6 +116,7 @@ function SingleFish(props: any) {
             item={item}
             userObject={userObject}
             setUserObjectFunc={setUserObjectFunc}
+            fillProfileFishArray={fillProfileFishArray}
           />
         </div>
       </div>

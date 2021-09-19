@@ -9,7 +9,7 @@ import { storage, db } from '../../Firebase';
 import './SendFish.css';
 
 function SendFish(props: any) {
-  const { isHome, userObject } = props;
+  const { isHome, userObject, setUserObjectFunc } = props;
   const history = useHistory();
   const fishPicRef = useRef(document.createElement('input'));
   // eslint-disable-next-line no-unused-vars
@@ -47,7 +47,7 @@ function SendFish(props: any) {
     const newUserObject = userObject;
     newUserObject.fish.push(userFish);
     await setDoc(doc(db, 'users', userObject.uid), newUserObject);
-    console.log(fishObject);
+    setUserObjectFunc()
   };
 
   const handleImageUpload = async () => {

@@ -5,26 +5,27 @@ import handleDislike from '../../api/HandleDislike';
 import './ProfileFishStats.css'
 
 function ProfileFishStats(props: any) {
-  const { item, userObject, setUserObjectFunc } = props;
+  const { item, userObject, setUserObjectFunc, fillProfileFishArray } = props;
   const [likeColor, setLikeColor] = useState({ color: 'rgb(83, 100, 113)' });
 
   useEffect(() => {
-    if (userObject.likes.some((element: string) => element === item.fishID)) {
+    
+    if (userObject?.likes?.some((element: string) => element === item.fishID)) {
       setLikeColor({ color: 'red' });
     }
   }, [userObject]);
-
+ 
   return (
     <div className="comments-refish-likes-container">
       <div className="comments-symbol-container">
         <i className="fas fa-comments" />
-        <p>{item.comments.length}</p>
+        <p>{item?.comments?.length}</p>
       </div>
       <div className="refish-symbol-container">
         <i className="fas fa-retweet" />
         <p>{item.refishArray.length}</p>
       </div>
-      {userObject.likes.some((element: string) => element === item.fishID) ? (
+      {userObject?.likes?.some((element: string) => element === item.fishID) ? (
         <div
           role="button"
           className="likes-symbol-container"
@@ -33,11 +34,14 @@ function ProfileFishStats(props: any) {
             setLikeColor({ color: 'rgb(83, 100, 113)' });
             await handleDislike(item.fishID);
             setUserObjectFunc();
+            fillProfileFishArray()
+
           }}
           onKeyDown={async () => {
             setLikeColor({ color: 'rgb(83, 100, 113)' });
             await handleDislike(item.fishID);
             setUserObjectFunc();
+            fillProfileFishArray()
           }}
           style={likeColor}
         >
@@ -52,12 +56,16 @@ function ProfileFishStats(props: any) {
             setLikeColor({ color: 'red' });
             await handleLike(item.fishID);
             setUserObjectFunc();
+            fillProfileFishArray()
+
           }}
           tabIndex={0}
           onKeyDown={async () => {
             setLikeColor({ color: 'red' });
             await handleLike(item.fishID);
             setUserObjectFunc();
+            fillProfileFishArray()
+
           }}
           style={likeColor}
         >
