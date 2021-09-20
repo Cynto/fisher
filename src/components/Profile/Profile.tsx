@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import './Profile.css';
-import { auth } from '../../Firebase';
 import TopProfile from '../TopProfile/TopProfile';
 import InfoProfile from '../InfoProfile/InfoProfile';
 
@@ -17,8 +16,8 @@ function Profile(props: any) {
     setProfileArray,
     userObject,
     setUserObjectFunc,
+    fillProfileArray,
   } = props;
-  console.log(auth.currentUser);
 
   return (
     <div className="total-profile-page">
@@ -32,6 +31,7 @@ function Profile(props: any) {
               setUserObjectFunc={setUserObjectFunc}
               userObject={userObject}
               profile={profile}
+              fillProfileArray={fillProfileArray}
             />
           </Route>
         </div>

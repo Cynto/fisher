@@ -19,13 +19,13 @@ function SingleFish(props: any) {
     props;
   const [deletePrompt, setDeletePrompt] = useState(false);
 
-
   const handleDelete = async () => {
-    const indexToDeleteFish = userObject.fish.findIndex(
-      (ele: any) => ele.fishID === item.fishID,
-    );
-    const newUserObject = userObject;
-    newUserObject.fish.splice(indexToDeleteFish, 1);
+    const userDoc1 = await getDoc(doc(db, 'users', userObject.uid));
+    const updatedUserObject: any = userDoc1.data();
+
+    const newUserObject = updatedUserObject;
+    newUserObject.fish.filter((ele: any) => ele.fishID !== item.fishID);
+
     setDoc(doc(db, 'users', newUserObject.uid), newUserObject);
 
     const itemRef = doc(db, 'fish', item.fishID);
@@ -39,12 +39,12 @@ function SingleFish(props: any) {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((userDoc: any) => {
         const user = userDoc.data();
-        const indexToDelete = user.likes.indexOf(item.fishID);
-        user.likes.splice(indexToDelete, 1);
+        user.likes = user.likes.filter((ele: any) => ele !== item.fishID);
         setDoc(doc(db, 'users', user.uid), user);
       });
     });
     deleteDoc(itemRef);
+    setUserObjectFunc();
   };
   return (
     <div className="total-single-fish-container">
@@ -60,11 +60,19 @@ function SingleFish(props: any) {
             <button
               type="button"
               className="prompt-delete-button"
-              onClick={async () => {await handleDelete(); setDeletePrompt(false); fillProfileFishArray()}}
+              onClick={async () => {
+                await handleDelete();
+                setDeletePrompt(false);
+                fillProfileFishArray();
+              }}
             >
               Delete
             </button>
-            <button type="button" className="prompt-cancel-button" onClick={() => setDeletePrompt(false)}>
+            <button
+              type="button"
+              className="prompt-cancel-button"
+              onClick={() => setDeletePrompt(false)}
+            >
               Cancel
             </button>
           </div>

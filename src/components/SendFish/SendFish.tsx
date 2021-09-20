@@ -3,13 +3,13 @@ import { useHistory, useLocation } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import uniqid from 'uniqid';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { setDoc, doc, Timestamp } from 'firebase/firestore';
+import { setDoc, doc, Timestamp, getDoc } from 'firebase/firestore';
 import { storage, db } from '../../Firebase';
 
 import './SendFish.css';
 
 function SendFish(props: any) {
-  const { isHome, userObject, setUserObjectFunc } = props;
+  const { isHome, userObject, setUserObjectFunc} = props;
   const history = useHistory();
   const fishPicRef = useRef(document.createElement('input'));
   // eslint-disable-next-line no-unused-vars
@@ -20,6 +20,8 @@ function SendFish(props: any) {
   const [, locationString] = locationArray;
 
   const handleFish = async () => {
+    const userDoc = await getDoc(doc(db, 'users', userObject.uid))
+    const updatedUserObject: any = userDoc.data()
     const fishText = document.getElementById(
       'fish-text',
     ) as HTMLTextAreaElement;
@@ -28,9 +30,9 @@ function SendFish(props: any) {
     const fishObject = {
       comments: [],
       likes: [],
-      name: userObject.name,
-      username: userObject.username,
-      profilePic: userObject.profilePic,
+      name: updatedUserObject.name,
+      username: updatedUserObject.username,
+      profilePic: updatedUserObject.profilePic,
       refishArray: [],
       fishText: fishText.value,
       imgLink,
@@ -44,10 +46,11 @@ function SendFish(props: any) {
       createdBy: userObject.username,
       createdAt: time,
     };
-    const newUserObject = userObject;
+    const newUserObject = updatedUserObject;
     newUserObject.fish.push(userFish);
-    await setDoc(doc(db, 'users', userObject.uid), newUserObject);
-    setUserObjectFunc()
+    console.log(userObject)
+    await setDoc(doc(db, 'users', updatedUserObject.uid), newUserObject);
+    setUserObjectFunc();
   };
 
   const handleImageUpload = async () => {
@@ -116,8 +119,9 @@ function SendFish(props: any) {
             </label>
             <button
               type="button"
-              onClick={() => {
-                handleFish();
+              onClick={async () => {
+                
+                await handleFish();
                 history.push(`/${locationString}`);
               }}
             >

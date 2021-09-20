@@ -15,7 +15,6 @@ function App() {
   const [userObject, setUserObject] = useState({ profilePic: '', likes: [] });
 
   const setUserObjectFunc = async () => {
-    console.log(auth);
     if (auth.currentUser) {
       const userDoc: any = await getDoc(doc(db, 'users', auth.currentUser.uid));
 
@@ -30,6 +29,7 @@ function App() {
       proArray.push(snap.data());
     });
     setProfileArray(proArray);
+    console.log('updated');
   };
 
   useEffect(() => {
@@ -40,9 +40,6 @@ function App() {
       }
     });
   }, []);
-  useEffect(() => {
-    console.log(profileArray);
-  }, [profileArray]);
 
   return (
     <Router>
@@ -61,7 +58,12 @@ function App() {
                 />
               </Route>
               <Route path={`/${profile.username}/compose_fish`}>
-                <SendFish userObject={userObject} isHome={false} setUserObjectFunc={setUserObjectFunc}/>
+                <SendFish
+                  userObject={userObject}
+                  isHome={false}
+                  setUserObjectFunc={setUserObjectFunc}
+                  fillProfileArray={fillProfileArray}
+                />
               </Route>
               <MainNav userObject={userObject} />
               <Profile
@@ -70,6 +72,7 @@ function App() {
                 profile={profile}
                 userObject={userObject}
                 setUserObjectFunc={setUserObjectFunc}
+                fillProfileArray={fillProfileArray}
               />
             </Route>
           ))}

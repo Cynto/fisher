@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { query, getDocs, where, collection } from 'firebase/firestore';
+import {
+  query,
+  getDocs,
+  where,
+  collection,
+  getDoc,
+  doc,
+} from 'firebase/firestore';
 import uniqid from 'uniqid';
 
 import './ProfileFish.css';
@@ -53,6 +60,8 @@ function ProfileFish(props: any) {
   };
 
   const fillProfileFishArray = async () => {
+    const updatedDoc: any = await getDoc(doc(db, 'users', profile.uid));
+    const updatedProfile = updatedDoc.data();
     const newArray: any[] = [];
     const fishQuery = query(
       collection(db, 'fish'),
@@ -62,11 +71,12 @@ function ProfileFish(props: any) {
     querySnapshot.forEach((docu: any) => {
       const fishObject = docu.data();
       if (fishObject) {
-        const indexOfFish = profile.fish.findIndex(
+        const indexOfFish = updatedProfile.fish.findIndex(
           (element: any) => element.fishID === fishObject.fishID,
         );
+
         if (indexOfFish !== -1) {
-          fishObject.refish = profile.fish[indexOfFish].refish;
+          fishObject.refish = updatedProfile.fish[indexOfFish].refish;
           fishObject.date = createTimeStamp(fishObject);
 
           newArray.push(fishObject);
@@ -76,9 +86,9 @@ function ProfileFish(props: any) {
     newArray.reverse();
     setProfileFishArray(newArray);
   };
+
   useEffect(() => {
     fillProfileFishArray();
-    console.log(userObject);
   }, []);
   return (
     <div className="all-fish-container">
