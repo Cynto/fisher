@@ -2,19 +2,21 @@ import React, { useState, useEffect } from 'react';
 import handleLike from '../../api/HandleLike';
 import handleDislike from '../../api/HandleDislike';
 
-import './ProfileFishStats.css'
+import './ProfileFishStats.css';
 
 function ProfileFishStats(props: any) {
   const { item, userObject, setUserObjectFunc, fillProfileFishArray } = props;
-  const [likeColor, setLikeColor] = useState({ color: 'rgb(83, 100, 113)' });
+  const [likeColorClass, setLikeColorClass] = useState(
+    'likes-symbol-container',
+  );
+  const [likesNumber, setLikesNumber] = useState(item.likes.length);
 
   useEffect(() => {
-    
     if (userObject?.likes?.some((element: string) => element === item.fishID)) {
-      setLikeColor({ color: 'red' });
+      setLikeColorClass('likes-symbol-container-liked');
     }
   }, [userObject]);
- 
+
   return (
     <div className="comments-refish-likes-container">
       <div className="comments-symbol-container">
@@ -28,49 +30,50 @@ function ProfileFishStats(props: any) {
       {userObject?.likes?.some((element: string) => element === item.fishID) ? (
         <div
           role="button"
-          className="likes-symbol-container"
+          className={likeColorClass}
           tabIndex={0}
           onClick={async () => {
-            setLikeColor({ color: 'rgb(83, 100, 113)' });
+            setLikesNumber((oldValue: number) => oldValue - 1);
+            setLikeColorClass('likes-symbol-container');
             await handleDislike(item.fishID);
+            await fillProfileFishArray();
             setUserObjectFunc();
-            fillProfileFishArray()
-
           }}
           onKeyDown={async () => {
-            setLikeColor({ color: 'rgb(83, 100, 113)' });
+            setLikesNumber((oldValue: number) => oldValue - 1);
+
+            setLikeColorClass('likes-symbol-container');
+
             await handleDislike(item.fishID);
+            await fillProfileFishArray();
             setUserObjectFunc();
-            fillProfileFishArray()
           }}
-          style={likeColor}
         >
           <i className="fas fa-heart" />
-          <p>{item.likes.length}</p>
+          <p>{likesNumber}</p>
         </div>
       ) : (
         <div
           role="button"
-          className="likes-symbol-container"
+          className={likeColorClass}
           onClick={async () => {
-            setLikeColor({ color: 'red' });
+            setLikeColorClass('likes-symbol-container-liked');
+            setLikesNumber((oldValue: number) => oldValue + 1);
             await handleLike(item.fishID);
+            await fillProfileFishArray();
             setUserObjectFunc();
-            fillProfileFishArray()
-
           }}
           tabIndex={0}
           onKeyDown={async () => {
-            setLikeColor({ color: 'red' });
+            setLikeColorClass('likes-symbol-container-liked');
+            setLikesNumber((oldValue: number) => oldValue + 1);
             await handleLike(item.fishID);
+            await fillProfileFishArray();
             setUserObjectFunc();
-            fillProfileFishArray()
-
           }}
-          style={likeColor}
         >
           <i className="fas fa-heart" />
-          <p>{item.likes.length}</p>
+          <p>{likesNumber}</p>
         </div>
       )}
     </div>

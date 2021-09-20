@@ -20,3 +20,6 @@
 .likes-symbol-container:hover {
   color: red;
 }
+.likes-symbol-container-liked {
+  color: red;
+}
