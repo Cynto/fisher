@@ -10,7 +10,7 @@ import {
 import uniqid from 'uniqid';
 
 import './ProfileFish.css';
-import { addDays, compareAsc, format } from 'date-fns';
+import { addDays, compareAsc, format} from 'date-fns';
 import { db } from '../../Firebase';
 import SingleFish from '../SingleFish/SingleFish';
 
@@ -20,36 +20,26 @@ function ProfileFish(props: any) {
   const [profileFishArray, setProfileFishArray] = useState<any[]>([]);
 
   const createTimeStamp = (fishObject: any) => {
-    const createdDate = fishObject.createdAt.toDate();
+    const createdDate: any = fishObject.createdAt.toDate();
     const dayAfterDate = addDays(new Date(createdDate), 1);
-    const currentDate = new Date();
+    const currentDate: any = new Date();
     let dateToUse: string = '0';
 
     //  checks if fish was made less than a day ago
     if (compareAsc(dayAfterDate, currentDate) === 1) {
-      dateToUse = format(createdDate, 'k');
-      const currentHour = Number(format(currentDate, 'k'));
-      const hourToUse = currentHour - Number(dateToUse);
+      const hourToUse = Math.floor(Math.abs(currentDate - createdDate) / 36e5);
+      dateToUse = `${hourToUse}h`;
 
-      if (Math.sign(hourToUse) === -1) {
-        dateToUse = `${23 + hourToUse}h`;
-      } else {
-        dateToUse = `${hourToUse - 1}h`;
-        if (hourToUse - 1 <= 0) {
-          console.log(hourToUse - 1);
-          const createdMinute = Number(format(createdDate, 'm'));
-          const currentMinute = Number(format(currentDate, 'm'));
-          const minuteToUse = currentMinute - createdMinute;
-          dateToUse = `${minuteToUse - 1}m`;
-          if (minuteToUse - 1 <= 0) {
-            const createdSecond = Number(format(createdDate, 's'));
-            const currentSecond = Number(format(currentDate, 's'));
-            const secondToUse = currentSecond - createdSecond;
-            dateToUse = `${secondToUse - 1}s`;
-            if (Math.sign(secondToUse) === -1) {
-              dateToUse = `${secondToUse + 60}s`;
-            }
-          }
+      if (hourToUse <= 0) {
+        let differenceUnformatted = Math.abs(currentDate - createdDate) / 1000;
+        differenceUnformatted /= 60;
+        const minuteToUse = Math.abs(Math.floor(differenceUnformatted));
+        dateToUse = `${minuteToUse}m`;
+        if (minuteToUse <= 0) {
+          const secondToUse = Math.floor(
+            (currentDate.getTime() - createdDate.getTime()) / 1000,
+          );
+          dateToUse = `${secondToUse - 1}s`;
         }
       }
     } else {
