@@ -24,7 +24,9 @@ function SingleFish(props: any) {
     const updatedUserObject: any = userDoc1.data();
 
     const newUserObject = updatedUserObject;
-    newUserObject.fish.filter((ele: any) => ele.fishID !== item.fishID);
+    newUserObject.fish = newUserObject.fish.filter(
+      (ele: any) => ele.fishID !== item.fishID,
+    );
 
     setDoc(doc(db, 'users', newUserObject.uid), newUserObject);
 
@@ -94,7 +96,7 @@ function SingleFish(props: any) {
           />
         </div>
         <div className="right-fish-container">
-          {userObject.fish.some(
+          {userObject?.fish?.some(
             (element: any) => element.fishID === item.fishID,
           ) ? (
             <button

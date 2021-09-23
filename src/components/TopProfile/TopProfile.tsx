@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './TopProfile.css';
 
 function TopProfile(props: any) {
   const { profile } = props;
+  const history = useHistory()
   return (
     <div className="profile-top-container">
       <div className="profile-top">
@@ -21,9 +22,12 @@ function TopProfile(props: any) {
         </div>
       </div>
       <img
+        role="presentation"
         className="profile-banner"
         src={profile.bannerPic}
         alt="profile-banner"
+        onKeyDown={() => history.push(`/${profile.username}/banner`)}
+        onClick={() => history.push(`/${profile.username}/banner`)}
       />
     </div>
   );

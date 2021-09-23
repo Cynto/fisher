@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import uniqid from 'uniqid';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
@@ -9,15 +8,11 @@ import { storage, db } from '../../Firebase';
 import './SendFish.css';
 
 function SendFish(props: any) {
-  const { isHome, userObject, setUserObjectFunc} = props;
-  const history = useHistory();
+  const { isHome, userObject, setUserObjectFunc, setSendFish, fillProfileArray} = props;
   const fishPicRef = useRef(document.createElement('input'));
   // eslint-disable-next-line no-unused-vars
   const [imgLink, setImgLink] = useState('');
 
-  const locationObject = useLocation();
-  const locationArray = locationObject.pathname.split('/');
-  const [, locationString] = locationArray;
 
   const handleFish = async () => {
     const userDoc = await getDoc(doc(db, 'users', userObject.uid))
@@ -48,9 +43,9 @@ function SendFish(props: any) {
     };
     const newUserObject = updatedUserObject;
     newUserObject.fish.push(userFish);
-    console.log(userObject)
     await setDoc(doc(db, 'users', updatedUserObject.uid), newUserObject);
-    setUserObjectFunc();
+    await setUserObjectFunc();
+    await fillProfileArray();
   };
 
   const handleImageUpload = async () => {
@@ -84,7 +79,7 @@ function SendFish(props: any) {
           <button
             className="exit-fish-button"
             type="button"
-            onClick={() => history.push(`/${locationString}`)}
+            onClick={() => setSendFish(false)}
           >
             X
           </button>
@@ -122,7 +117,7 @@ function SendFish(props: any) {
               onClick={async () => {
                 
                 await handleFish();
-                history.push(`/${locationString}`);
+                setSendFish(false);
               }}
             >
               Send Fish

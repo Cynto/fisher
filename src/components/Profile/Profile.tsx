@@ -1,16 +1,16 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Route, useParams } from 'react-router-dom';
 import './Profile.css';
 import TopProfile from '../TopProfile/TopProfile';
 import InfoProfile from '../InfoProfile/InfoProfile';
 
 import ProfileNav from '../ProfileNav/ProfileNav';
 import ProfileFish from '../ProfileFish/ProfileFish';
+import EditProfile from '../EditProfile/EditProfile';
+import ProfileDoesntExist from '../ProfileDoesntExist/ProfileDoesntExist';
 
 function Profile(props: any) {
-  
   const {
-    profile,
     // eslint-disable-next-line no-unused-vars
     profileArray,
     setProfileArray,
@@ -18,23 +18,70 @@ function Profile(props: any) {
     setUserObjectFunc,
     fillProfileArray,
   } = props;
+  const [profile, setProfile] = useState({ username: '' });
+  const [profileIsSet, setProfileIsSet] = useState(false);
+  const [profileDoesExist, setProfileDoesExist] = useState(true);
 
+  const { username } = useParams<{ username: string }>();
+
+  const fillProfile = () => {
+    const indexOfProfile = profileArray.findIndex(
+      (element: any) => element.username === username,
+    );
+    if (indexOfProfile !== -1) {
+      setProfile(profileArray[indexOfProfile]);
+      setProfileIsSet(true);
+      setProfileDoesExist(true);
+    } else if (profileArray.length > 0) {
+      setProfileDoesExist(false);
+    }
+  };
+
+  useEffect(() => {
+    fillProfile();
+  }, [profileArray]);
+
+  if (profileIsSet) {
+    return (
+      <div className="total-profile-page">
+        <div className="profile-page">
+          <div className="profile-inner">
+            <TopProfile profile={profile} />
+            <InfoProfile profile={profile} setProfileArray={setProfileArray} />
+            <ProfileNav profile={profile} />
+            <Route exact path="/:username">
+              <ProfileFish
+                setUserObjectFunc={setUserObjectFunc}
+                userObject={userObject}
+                profile={profile}
+                fillProfileArray={fillProfileArray}
+                profileArray={profileArray}
+              />
+            </Route>
+            <Route path="/:username/photo">
+              
+            </Route>
+            {userObject.username === profile.username ? (
+              <Route path="/:username/edit_profile">
+                <EditProfile
+                  profileArray={profileArray}
+                  setProfileArray={setProfileArray}
+                  profile={profile}
+                />
+              </Route>
+            ) : null}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (!profileDoesExist) {
+    return <ProfileDoesntExist />;
+  }
   return (
     <div className="total-profile-page">
       <div className="profile-page">
-        <div className="profile-inner">
-          <TopProfile profile={profile} />
-          <InfoProfile profile={profile} setProfileArray={setProfileArray} />
-          <ProfileNav profile={profile} />
-          <Route exact path={`/${profile.username}`}>
-            <ProfileFish
-              setUserObjectFunc={setUserObjectFunc}
-              userObject={userObject}
-              profile={profile}
-              fillProfileArray={fillProfileArray}
-            />
-          </Route>
-        </div>
+        <div className="profile-inner" />
       </div>
     </div>
   );

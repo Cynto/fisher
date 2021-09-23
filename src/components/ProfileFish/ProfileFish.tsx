@@ -15,7 +15,7 @@ import { db } from '../../Firebase';
 import SingleFish from '../SingleFish/SingleFish';
 
 function ProfileFish(props: any) {
-  const { profile, userObject, setUserObjectFunc } = props;
+  const { profile, userObject, setUserObjectFunc, profileArray } = props;
   // eslint-disable-next-line no-unused-vars
   const [profileFishArray, setProfileFishArray] = useState<any[]>([]);
 
@@ -79,7 +79,7 @@ function ProfileFish(props: any) {
 
   useEffect(() => {
     fillProfileFishArray();
-  }, []);
+  }, [profileArray]);
   return (
     <div className="all-fish-container">
       {profileFishArray.length >= 1

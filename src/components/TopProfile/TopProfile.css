@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   height: 53px;
- 
+  width: 100%;
 }
 .profile-top p {
   color: gray;
@@ -19,6 +19,7 @@
  .profile-banner {
   width: 598px;
   height: 200px;
+  cursor: pointer;
 }
 .profile-top button {
   border-radius: 100%;

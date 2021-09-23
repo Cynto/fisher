@@ -139,7 +139,7 @@ function InfoProfile(props: any) {
     <div className="profile-info-container">
       <div className="left-info-container">
         <div className="profile-pic-container">
-          <img src={profile.profilePic} alt="profile-pic" />
+          <img role="presentation" src={profile.profilePic} alt="profile-pic" onKeyDown={() => history.push(`/${profile.username}/photo`)} onClick={() => history.push(`/${profile.username}/photo`)}/>
         </div>
         <div className="name-username-container">
           <h3>{profile.name}</h3>
