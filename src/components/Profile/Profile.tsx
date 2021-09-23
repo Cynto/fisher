@@ -8,6 +8,8 @@ import ProfileNav from '../ProfileNav/ProfileNav';
 import ProfileFish from '../ProfileFish/ProfileFish';
 import EditProfile from '../EditProfile/EditProfile';
 import ProfileDoesntExist from '../ProfileDoesntExist/ProfileDoesntExist';
+import BigProfilePic from '../BigProfilePic/BigProfilePic';
+import BigBanner from '../BigBanner/BigBanner';
 
 function Profile(props: any) {
   const {
@@ -59,7 +61,10 @@ function Profile(props: any) {
               />
             </Route>
             <Route path="/:username/photo">
-              
+              <BigProfilePic profile={profile} />
+            </Route>
+            <Route path="/:username/banner">
+              <BigBanner profile={profile} />
             </Route>
             {userObject.username === profile.username ? (
               <Route path="/:username/edit_profile">

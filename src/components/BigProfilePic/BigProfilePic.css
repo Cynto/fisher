@@ -1,0 +1,11 @@
+.big-profile-pic-container {
+  
+  width: 368px;
+  height: 368px;
+}
+.big-profile-pic {
+  border-radius: 50%;
+  width: 368px;
+  height: 368px;
+  
+}
