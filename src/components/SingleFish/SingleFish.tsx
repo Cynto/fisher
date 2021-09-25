@@ -9,7 +9,7 @@ import {
   setDoc,
   deleteDoc,
 } from 'firebase/firestore';
-
+import { useHistory } from 'react-router-dom';
 import { db } from '../../Firebase';
 import ProfileFishStats from '../ProfileFishStats/ProfileFishStats';
 import './SingleFish.css';
@@ -18,7 +18,7 @@ function SingleFish(props: any) {
   const { profile, userObject, setUserObjectFunc, item, fillProfileFishArray } =
     props;
   const [deletePrompt, setDeletePrompt] = useState(false);
-
+  const history = useHistory();
   const handleDelete = async () => {
     const userDoc1 = await getDoc(doc(db, 'users', userObject.uid));
     const updatedUserObject: any = userDoc1.data();
@@ -49,7 +49,13 @@ function SingleFish(props: any) {
     setUserObjectFunc();
   };
   return (
-    <div className="total-single-fish-container">
+    <div
+      role="link"
+      tabIndex={0}
+      className="total-single-fish-container"
+      onKeyDown={() => history.push(`/${item.username}/fish/${item.fishID}`)}
+      onClick={() => history.push(`/${item.username}/fish/${item.fishID}`)}
+    >
       {deletePrompt ? (
         <div className="absolute-background-div">
           <div className="delete-prompt-container">

@@ -28,7 +28,7 @@ function Profile(props: any) {
 
   const fillProfile = () => {
     const indexOfProfile = profileArray.findIndex(
-      (element: any) => element.username === username,
+      (element: any) => element.usernameLower === username.toLowerCase(),
     );
     if (indexOfProfile !== -1) {
       setProfile(profileArray[indexOfProfile]);

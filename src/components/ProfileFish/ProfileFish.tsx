@@ -10,7 +10,7 @@ import {
 import uniqid from 'uniqid';
 
 import './ProfileFish.css';
-import { addDays, compareAsc, format} from 'date-fns';
+import { addDays, compareAsc, format } from 'date-fns';
 import { db } from '../../Firebase';
 import SingleFish from '../SingleFish/SingleFish';
 
@@ -39,7 +39,7 @@ function ProfileFish(props: any) {
           const secondToUse = Math.floor(
             (currentDate.getTime() - createdDate.getTime()) / 1000,
           );
-          dateToUse = `${secondToUse - 1}s`;
+          dateToUse = `${secondToUse}s`;
         }
       }
     } else {

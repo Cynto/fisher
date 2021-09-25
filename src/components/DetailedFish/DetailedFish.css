@@ -1,0 +1,68 @@
+.detailed-fish-container {
+  width: 598px;
+  margin-left: 15px;
+}
+#detailed-fish-title {
+  margin-left: 40px;
+}
+.detailed-profile-name-container {
+  width: 100%;
+  display: flex;
+}
+.detailed-profile-pic {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.detailed-name-username-container {
+  display: flex;
+  flex-direction: column;
+  height: 40px;
+  margin-left: 12px;
+  font-size: 15px;
+}
+.detailed-name-username-container h4 {
+  margin: 0;
+  height: 20px;
+  color: rgb(15, 20, 25);
+}
+.detailed-name-username-container p {
+  height: 20px;
+  margin: 0;
+  color: rgb(83, 100, 113);
+}
+.detailed-fish-text-container {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.detailed-fish-text-container p {
+  font-size: 23px;
+  line-height: 28px;
+  color: rgb(15, 20, 25);
+  margin: 0;
+}
+.detailed-fish-image-container {
+  max-width: 564px;
+  max-height: 361px;
+}
+.detailed-fish-image-container img {
+ width: 100%;
+ height: 100%;
+ border-radius: 20px;
+}
+.detailed-date-container p{
+  color: rgb(83, 100, 113);
+  font-size: 15px;
+}
+.detailed-stats-container {
+  display: flex;
+  font-size: 15px;
+}
+.bold {
+  font-weight: bolder;
+}
+.grey-p {
+  color: rgb(83, 100, 113);
+  margin-right: 10px;
+  margin-left: 5px;
+}

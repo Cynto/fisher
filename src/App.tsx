@@ -7,6 +7,7 @@ import { auth, db } from './Firebase';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import MainNav from './components/MainNav/MainNav';
+import DetailedFish from './components/DetailedFish/DetailedFish';
 
 function App() {
   const [profileArray, setProfileArray] = useState([]);
@@ -50,26 +51,30 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          
-            <Route path="/:username">
-              
-              
-
-              <MainNav
-                userObject={userObject}
-                isHome={false}
-                setUserObjectFunc={setUserObjectFunc}
-                fillProfileArray={fillProfileArray}
-              />
-              <Profile
-                profileArray={profileArray}
-                setProfileArray={setProfileArray}
-                userObject={userObject}
-                setUserObjectFunc={setUserObjectFunc}
-                fillProfileArray={fillProfileArray}
-              />
-            </Route>
-          
+          <Route path="/:username/fish/:fishID">
+            <MainNav
+              userObject={userObject}
+              isHome={false}
+              setUserObjectFunc={setUserObjectFunc}
+              fillProfileArray={fillProfileArray}
+            />
+            <DetailedFish />
+          </Route>
+          <Route path="/:username">
+            <MainNav
+              userObject={userObject}
+              isHome={false}
+              setUserObjectFunc={setUserObjectFunc}
+              fillProfileArray={fillProfileArray}
+            />
+            <Profile
+              profileArray={profileArray}
+              setProfileArray={setProfileArray}
+              userObject={userObject}
+              setUserObjectFunc={setUserObjectFunc}
+              fillProfileArray={fillProfileArray}
+            />
+          </Route>
         </Switch>
       </div>
     </Router>

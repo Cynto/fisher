@@ -23,7 +23,7 @@
 }
 .name-date-container h4 {
   margin: 0;
-
+  color: rgb(15, 20, 25);
   font-size: 16px;
 }
 .name-date-container p {
@@ -35,7 +35,6 @@
 .name-date-container span {
   margin-left: 5px;
   color: rgb(83, 100, 113);
-
 }
 .fish-text-container {
   margin-left: 10px;
@@ -107,7 +106,6 @@
   background: rgb(244, 33, 46);
   color: white;
   border: none;
-
 }
 .prompt-delete-button:hover {
   background: rgb(211, 0, 14);
@@ -119,5 +117,4 @@
 }
 .prompt-cancel-button:hover {
   background: rgb(224, 224, 224);
-
 }

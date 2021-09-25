@@ -1,6 +1,5 @@
 .main-nav-container {
   width: 64px;
-  border-right: 1px solid grey;
   display: flex;
   flex-direction: column;
   align-items: center;

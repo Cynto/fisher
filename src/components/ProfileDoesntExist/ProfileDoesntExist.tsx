@@ -1,6 +1,6 @@
 import React from 'react';
-import {useParams} from 'react-router-dom'
-import './ProfileDoesntExist.css'
+import { useParams } from 'react-router-dom';
+import './ProfileDoesntExist.css';
 
 function ProfileDoesntExist() {
   const { username } = useParams<{ username: string }>();
@@ -24,7 +24,7 @@ function ProfileDoesntExist() {
             </div>
             <img
               className="profile-banner"
-              src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwcHBwcHBwcHBwcHBw0HBwcHBw8ICQcNFREWFhURExMYHSggGBoxGxMTITEhJSkrLi4uFx8zODMtNygtLisBCgoKBgYGDg8PGisZExkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIALcBFAMBIgACEQEDEQH/xAAWAAEBAQAAAAAAAAAAAAAAAAAAAQf/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDSwERYFQBUFBAAUABFQFAAAAAARQAABBQBABQAEUBFAAAAAQAAAAABUAUAAAAAAAAAAEBRAFEAVBQBAFEAUQAFQBUUEAAAAAAABRAFEUAEBRAFEAVAAAAAAAAAAAAAAAAVFBAAAAAAAAVFQFQAUEAUQFQAAAAAAAAAAAAAAAAAFRQQAAAAAAAAABUAVBQBAAAAAAAAAAAAAAAAAAABUUEAAAAAAABUAAAAAAABUABQEFAQVABQEAAFAQUBAUEUARQBAAAAAAAAAAVABUAAABUUEFAAARUAAUAEAFAEFAABAUEAAAAAAAAAAAABQQABUUEUAEUBFAEUABFBFABFAAAQFBAAFQAAAAAAAAAABUABUUAQBRAFRUAVFBFAAAEUQFABAAAAAAAAAAAABUAAAAAVFARQEFQBQBAUAAARQAAAAQUBAAAAAAAAAAAAAAAAFEBRAFQAFQAABRAFEAFQBRFAAAAAAAABBQEFAEUBBQEFAQUBBQEFAQUBBQEFARQBBQAAH//Z"
+              src="https://firebasestorage.googleapis.com/v0/b/fisher-d459b.appspot.com/o/images%2Forange-banner.jpeg?alt=media&token=f3a27c90-6308-4ecd-91be-362c270d8b03"
               alt="profile banner"
             />
           </div>
@@ -32,7 +32,7 @@ function ProfileDoesntExist() {
             <div className="left-info-container">
               <div className="profile-pic-container">
                 <img
-                  src="https://lh3.googleusercontent.com/proxy/1BBg2_oqmrXx59QeXZGDWw9w2XLbFKT6DA6zbT0SxoWFMFXk53T-2zFy27dczF-rbCfrFFfEmxuofAuBLYPFAu24CZk0Nvo55MyyPJBIsghG_3ztI_GWsAdAatSZWj0KuwcUrdojWi7BoqUdjg"
+                  src="https://firebasestorage.googleapis.com/v0/b/fisher-d459b.appspot.com/o/images%2Fwhite-background.jpg?alt=media&token=39606350-f42c-4b73-8a68-eb83d2bc1cc5"
                   alt="profile-pic"
                 />
               </div>
@@ -41,7 +41,7 @@ function ProfileDoesntExist() {
               </div>
             </div>
           </div>
-          <div className="does-not-exist-container" >
+          <div className="does-not-exist-container">
             <h1>This account doesn&apos;t exist</h1>
             <p>Try searching for another</p>
           </div>
