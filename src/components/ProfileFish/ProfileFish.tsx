@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  query,
-  getDocs,
-  where,
-  collection,
-  getDoc,
-  doc,
-} from 'firebase/firestore';
+import { getDoc, doc } from 'firebase/firestore';
 import uniqid from 'uniqid';
 
 import './ProfileFish.css';
@@ -50,30 +43,24 @@ function ProfileFish(props: any) {
   };
 
   const fillProfileFishArray = async () => {
+    const newArray: any[] = [];
     const updatedDoc: any = await getDoc(doc(db, 'users', profile.uid));
     const updatedProfile = updatedDoc.data();
-    const newArray: any[] = [];
-    const fishQuery = query(
-      collection(db, 'fish'),
-      where('username', '==', profile.username),
-    );
-    const querySnapshot = await getDocs(fishQuery);
-    querySnapshot.forEach((docu: any) => {
-      const fishObject = docu.data();
-      if (fishObject) {
-        const indexOfFish = updatedProfile.fish.findIndex(
-          (element: any) => element.fishID === fishObject.fishID,
-        );
+    await Promise.all( updatedProfile.fish.map(async (item: any, index: number) => {
+      const fishRef = await getDoc(doc(db, 'fish', item.fishID));
+      if (fishRef.exists()) {
+        const fishObject = fishRef.data();
 
-        if (indexOfFish !== -1) {
-          fishObject.refish = updatedProfile.fish[indexOfFish].refish;
-          fishObject.date = createTimeStamp(fishObject);
+        fishObject.refish = updatedProfile.fish[index].refish;
+        fishObject.date = createTimeStamp(fishObject);
 
-          newArray.push(fishObject);
-        }
+        newArray.push(fishObject);
       }
-    });
+      
+    }));
+    
     newArray.reverse();
+    console.log(newArray)
     setProfileFishArray(newArray);
   };
 

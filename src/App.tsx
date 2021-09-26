@@ -58,7 +58,7 @@ function App() {
               setUserObjectFunc={setUserObjectFunc}
               fillProfileArray={fillProfileArray}
             />
-            <DetailedFish />
+            <DetailedFish userObject={userObject} setUserObjectFunc={setUserObjectFunc}/>
           </Route>
           <Route path="/:username">
             <MainNav

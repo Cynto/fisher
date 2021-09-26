@@ -11,8 +11,10 @@ import {
 } from 'firebase/firestore';
 import { db } from '../../Firebase';
 import './DetailedFish.css';
+import DetailedButtons from './DetailedButtons/DetailedButtons';
 
-function DetailedFish() {
+function DetailedFish(props: any) {
+  const { userObject, setUserObjectFunc } = props;
   const [profile, setProfile] = useState<any>({});
   const [fishObject, setFishObject] = useState<any>({});
   const { username, fishID } =
@@ -80,15 +82,8 @@ function DetailedFish() {
       <div className="detailed-date-container">
         <p>{fishObject.date}</p>
       </div>
-      <div className="detailed-stats-container">
-        <p className="bold">{fishObject?.comments?.length}</p>
-        <p className="grey-p">Comments</p>
-        <p className="bold">{fishObject?.refishArray?.length}</p>
-        <p className="grey-p">Refish</p>
-
-        <p className="bold">{fishObject?.likes?.length}</p>
-        <p className="grey-p">Likes</p>
-      </div>
+      
+      <DetailedButtons userObject={userObject} fishObject={fishObject} setUserObjectFunc={setUserObjectFunc}/>
     </div>
   );
 }

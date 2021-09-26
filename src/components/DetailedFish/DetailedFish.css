@@ -43,14 +43,15 @@
 }
 .detailed-fish-image-container {
   max-width: 564px;
-  max-height: 361px;
+
+  max-height: 564px;
 }
 .detailed-fish-image-container img {
- width: 100%;
- height: 100%;
- border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
 }
-.detailed-date-container p{
+.detailed-date-container p {
   color: rgb(83, 100, 113);
   font-size: 15px;
 }

@@ -1,0 +1,26 @@
+.comment-refish-like-container {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 50px;
+  color: rgb(83, 100, 113);
+  
+}
+.comment-refish-like-container i{
+  font-size: 21px;
+  cursor: pointer;
+}
+
+.fa-comment {
+  font-weight: lighter;
+}
+.heart-symbol {
+  font-weight: lighter;
+
+}
+.heart-symbol:hover {
+  color: red;
+}
+.heart-symbol-liked {
+  color: red;
+}

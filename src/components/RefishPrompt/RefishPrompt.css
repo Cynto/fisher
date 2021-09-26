@@ -1,0 +1,40 @@
+.refish-prompt-container {
+  width: 300px;
+  max-height: 320px;
+  padding: 32px;
+  background: white;
+  border-radius: 16px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 120px;
+  display: flex;
+  flex-direction: column;
+}
+.refish-prompt-container button {
+  min-height: 44px;
+  margin-bottom: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
+  border-radius: 9999px;
+  font-size: 16px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+.prompt-refish-button {
+  background: orange;
+  color: white;
+  border: none;
+}
+.prompt-refish-button:hover {
+  background: rgb(236, 154, 2);
+}
+.prompt-quote-button {
+  border: 1px solid orange;
+}
+.prompt-quote-button i {
+  margin-right: 5px;
+}
+.prompt-quote-button:hover {
+  border: 1px solid rgb(236, 154, 2);
+
+}
