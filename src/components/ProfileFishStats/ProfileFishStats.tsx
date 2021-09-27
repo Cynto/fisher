@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import handleLike from '../../api/HandleLike';
 import handleDislike from '../../api/HandleDislike';
-
+import RefishPrompt from '../RefishPrompt/RefishPrompt';
+import UnrefishPrompt from '../UnrefishPrompt/UnrefishPrompt';
 import './ProfileFishStats.css';
 
 function ProfileFishStats(props: any) {
@@ -10,6 +11,9 @@ function ProfileFishStats(props: any) {
     'likes-symbol-container',
   );
   const [likesNumber, setLikesNumber] = useState(item.likes.length);
+  const [refishColorClass, setRefishColorClass] = useState('');
+  const [refishPrompt, setRefishPrompt] = useState(false);
+  const [unrefishPrompt, setUnrefishPrompt] = useState(false);
 
   useEffect(() => {
     if (userObject?.likes?.some((element: string) => element === item.fishID)) {
@@ -34,11 +38,37 @@ function ProfileFishStats(props: any) {
       setUserObjectFunc();
     }
   };
+  useEffect(() => {
+    if (
+      item?.refishArray?.some((element: any) => element === userObject.username)
+    ) {
+      setRefishColorClass('refish-symbol-refished');
+    }
+  }, [item]);
 
   return (
     <div className="comments-refish-likes-container">
+      {unrefishPrompt ? (
+        <UnrefishPrompt
+          userObject={userObject}
+          fishObject={item}
+          setUnrefishPrompt={setUnrefishPrompt}
+          setRefishColorClass={setRefishColorClass}
+          fillProfileFishArray={fillProfileFishArray}
+        />
+      ) : null}
+      {refishPrompt ? (
+        <RefishPrompt
+          userObject={userObject}
+          fishObject={item}
+          setRefishPrompt={setRefishPrompt}
+          setRefishColorClass={setRefishColorClass}
+          fillProfileFishArray={fillProfileFishArray}
+
+        />
+      ) : null}
       <div
-        className="comments-symbol-container"
+        className="comments-symbol-container single-container"
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
@@ -52,14 +82,32 @@ function ProfileFishStats(props: any) {
         <p>{item?.comments?.length}</p>
       </div>
       <div
-        className="refish-symbol-container"
+        className={`refish-symbol-container single-container ${refishColorClass}`}
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
           e.preventDefault();
+          if (
+            item?.refishArray?.some(
+              (element: any) => element === userObject.username,
+            )
+          ) {
+            setUnrefishPrompt(true);
+          } else {
+            setRefishPrompt(true);
+          }
         }}
         onClick={(e) => {
           e.preventDefault();
+          if (
+            item?.refishArray?.some(
+              (element: any) => element === userObject.username,
+            )
+          ) {
+            setUnrefishPrompt(true);
+          } else {
+            setRefishPrompt(true);
+          }
         }}
       >
         <i className="fas fa-retweet" />
@@ -67,7 +115,7 @@ function ProfileFishStats(props: any) {
       </div>
       <div
         role="button"
-        className={likeColorClass}
+        className={`${likeColorClass} single-container`}
         tabIndex={0}
         onClick={async (e) => clickHeart(e)}
         onKeyDown={async (e) => clickHeart(e)}

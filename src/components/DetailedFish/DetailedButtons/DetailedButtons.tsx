@@ -3,12 +3,15 @@ import handleLike from '../../../api/HandleLike';
 import handleDislike from '../../../api/HandleDislike';
 import RefishPrompt from '../../RefishPrompt/RefishPrompt';
 import './DetailedButtons.css';
+import UnrefishPrompt from '../../UnrefishPrompt/UnrefishPrompt';
 
 function DetailedButtons(props: any) {
-  const { userObject, fishObject, setUserObjectFunc } = props;
+  const { userObject, fishObject, setUserObjectFunc, getFish } = props;
   const [likeColorClass, setLikeColorClass] = useState('heart-symbol');
   const [likeNumber, setLikeNumber] = useState(0);
   const [refishPrompt, setRefishPrompt] = useState(false);
+  const [unrefishPrompt, setUnrefishPrompt] = useState(false);
+  const [refishColorClass, setRefishColorClass] = useState('');
 
   const clickHeart = async () => {
     if (
@@ -31,15 +34,40 @@ function DetailedButtons(props: any) {
     ) {
       setLikeColorClass('heart-symbol-liked');
     }
+    
   }, [userObject]);
 
   useEffect(() => {
     setLikeNumber(fishObject?.likes?.length);
+    if (
+      fishObject?.refishArray?.some(
+        (element: any) => element === userObject.username,
+      )
+    ) {
+      setRefishColorClass('refish-symbol-refished');
+    }
   }, [fishObject]);
 
   return (
     <div>
-      {refishPrompt ? <RefishPrompt userObject={userObject} fishObject={fishObject} setRefishPrompt={setRefishPrompt}/> : null}
+      {unrefishPrompt ? (
+        <UnrefishPrompt
+          userObject={userObject}
+          fishObject={fishObject}
+          setUnrefishPrompt={setUnrefishPrompt}
+          setRefishColorClass={setRefishColorClass}
+          getFish={getFish}
+        />
+      ) : null}
+      {refishPrompt ? (
+        <RefishPrompt
+          userObject={userObject}
+          fishObject={fishObject}
+          setRefishPrompt={setRefishPrompt}
+          setRefishColorClass={setRefishColorClass}
+          getFish={getFish}
+        />
+      ) : null}
       <div className="detailed-stats-container">
         <p className="bold">{fishObject?.comments?.length}</p>
         <p className="grey-p">Comments</p>
@@ -55,9 +83,29 @@ function DetailedButtons(props: any) {
           role="button"
           aria-label="Refish button"
           tabIndex={0}
-          className="fas fa-retweet"
-          onKeyDown={() => setRefishPrompt(true)}
-          onClick={() => setRefishPrompt(true)}
+          className={`fas fa-retweet ${refishColorClass}`}
+          onKeyDown={() => {
+            if (
+              fishObject?.refishArray?.some(
+                (element: any) => element === userObject.username,
+              )
+            ) {
+              setUnrefishPrompt(true);
+            } else {
+              setRefishPrompt(true);
+            }
+          }}
+          onClick={() => {
+            if (
+              fishObject?.refishArray?.some(
+                (element: any) => element === userObject.username,
+              )
+            ) {
+              setUnrefishPrompt(true);
+            } else {
+              setRefishPrompt(true);
+            }
+          }}
         />
 
         <i

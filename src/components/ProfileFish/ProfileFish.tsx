@@ -46,21 +46,26 @@ function ProfileFish(props: any) {
     const newArray: any[] = [];
     const updatedDoc: any = await getDoc(doc(db, 'users', profile.uid));
     const updatedProfile = updatedDoc.data();
-    await Promise.all( updatedProfile.fish.map(async (item: any, index: number) => {
-      const fishRef = await getDoc(doc(db, 'fish', item.fishID));
-      if (fishRef.exists()) {
-        const fishObject = fishRef.data();
+    updatedProfile.fish.sort(
+      (a: any, b: any) => a.createdAt.toDate() - b.createdAt.toDate(),
+    );
 
-        fishObject.refish = updatedProfile.fish[index].refish;
-        fishObject.date = createTimeStamp(fishObject);
+    await Promise.all(
+      updatedProfile.fish.map(async (item: any, index: number) => {
+        const fishRef = await getDoc(doc(db, 'fish', item.fishID));
+        if (fishRef.exists()) {
+          const fishObject = fishRef.data();
 
-        newArray.push(fishObject);
-      }
-      
-    }));
-    
+          fishObject.refish = updatedProfile.fish[index].refish;
+          fishObject.date = createTimeStamp(fishObject);
+
+          newArray.push(fishObject);
+        }
+      }),
+    );
+
     newArray.reverse();
-    console.log(newArray)
+    console.log(newArray);
     setProfileFishArray(newArray);
   };
 

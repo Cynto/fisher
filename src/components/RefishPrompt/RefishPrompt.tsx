@@ -4,8 +4,9 @@ import { db } from '../../Firebase';
 import './RefishPrompt.css';
 
 function RefishPrompt(props: any) {
-  const { userObject, fishObject, setRefishPrompt } = props;
-  console.log(userObject, fishObject);
+  const { userObject, fishObject, setRefishPrompt, fillProfileFishArray, getFish } =
+    props;
+
   const handleRefish = async () => {
     const fishRef = doc(db, 'fish', fishObject.fishID);
     const fishDoc = await getDoc(fishRef);
@@ -17,7 +18,7 @@ function RefishPrompt(props: any) {
           refishArray: updatedFishObject.refishArray,
         });
       }
-      const refishDate = Timestamp.now()
+      const refishDate = Timestamp.now();
       const newFishRefObject = {
         createdAt: refishDate,
         createdBy: fishObject.username,
@@ -33,14 +34,35 @@ function RefishPrompt(props: any) {
         fish: newUserObject.fish,
       });
     }
+    if (fillProfileFishArray) {
+      await fillProfileFishArray();
+    }else if(getFish) {
+      getFish();
+    }
   };
   return (
-    <div className="absolute-background-div">
-      <div className="refish-prompt-container">
+    <div
+      role="link"
+      tabIndex={0}
+      onKeyDown={(e) => e.preventDefault()}
+      onClick={(e) => e.preventDefault()}
+      className="absolute-background-div"
+    >
+      <div
+        role="link"
+        tabIndex={0}
+        onKeyDown={(e) => e.preventDefault()}
+        onClick={(e) => e.preventDefault()}
+        className="refish-prompt-container"
+      >
         <button
           type="button"
           className="prompt-refish-button"
-          onClick={handleRefish}
+          onClick={(e) => {
+            e.preventDefault();
+            handleRefish();
+            setRefishPrompt(false);
+          }}
         >
           <i className="fas fa-retweet" /> Refish
         </button>
@@ -52,7 +74,10 @@ function RefishPrompt(props: any) {
         <button
           type="button"
           className="prompt-cancel-button"
-          onClick={() => setRefishPrompt(false)}
+          onClick={(e) => {
+            e.preventDefault();
+            setRefishPrompt(false);
+          }}
         >
           Cancel
         </button>

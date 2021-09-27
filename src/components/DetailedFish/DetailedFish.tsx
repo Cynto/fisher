@@ -83,7 +83,7 @@ function DetailedFish(props: any) {
         <p>{fishObject.date}</p>
       </div>
       
-      <DetailedButtons userObject={userObject} fishObject={fishObject} setUserObjectFunc={setUserObjectFunc}/>
+      <DetailedButtons getFish={getFish} userObject={userObject} fishObject={fishObject} setUserObjectFunc={setUserObjectFunc}/>
     </div>
   );
 }
