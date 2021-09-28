@@ -38,9 +38,7 @@ function SingleFish(props: any) {
             </Link>
           </div>
           <div className="right-fish-container">
-            {userObject?.fish?.some(
-              (element: any) => element.fishID === item.fishID,
-            ) ? (
+            {item?.username === userObject.username ? (
               <button
                 className="fas fa-trash delete-fish"
                 type="button"

@@ -1,4 +1,4 @@
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, Timestamp } from 'firebase/firestore';
 import { auth, db } from '../Firebase';
 
 const handleLike = async (id: string) => {
@@ -8,8 +8,9 @@ const handleLike = async (id: string) => {
     const userObject: any = userDoc.data();
 
     if (userObject.likes.indexOf(id) === -1) {
+      const likedDate = Timestamp.now();
       await updateDoc(userRef, {
-        likes: [...userObject.likes, id],
+        likes: [...userObject.likes, { fishID: id, likedDate }],
       });
     }
     const fishRef = doc(db, 'fish', id);

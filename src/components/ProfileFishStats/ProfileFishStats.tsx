@@ -16,13 +16,13 @@ function ProfileFishStats(props: any) {
   const [unrefishPrompt, setUnrefishPrompt] = useState(false);
 
   useEffect(() => {
-    if (userObject?.likes?.some((element: string) => element === item.fishID)) {
+    if (userObject?.likes?.some((element: any) => element.fishID === item.fishID)) {
       setLikeColorClass('likes-symbol-container-liked');
     }
   }, [userObject]);
 
   const clickHeart = async (e: any) => {
-    if (userObject?.likes?.some((element: any) => element === item.fishID)) {
+    if (userObject?.likes?.some((element: any) => element.fishID === item.fishID)) {
       e.preventDefault();
       setLikesNumber((oldValue: number) => oldValue - 1);
       setLikeColorClass('likes-symbol-container');

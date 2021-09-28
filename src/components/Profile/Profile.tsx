@@ -6,6 +6,7 @@ import InfoProfile from '../InfoProfile/InfoProfile';
 
 import ProfileNav from '../ProfileNav/ProfileNav';
 import ProfileFish from '../ProfileFish/ProfileFish';
+import ProfileLikes from '../ProfileLikes/ProfileLikes';
 import EditProfile from '../EditProfile/EditProfile';
 import ProfileDoesntExist from '../ProfileDoesntExist/ProfileDoesntExist';
 import BigProfilePic from '../BigProfilePic/BigProfilePic';
@@ -53,6 +54,15 @@ function Profile(props: any) {
             <ProfileNav profile={profile} />
             <Route exact path="/:username">
               <ProfileFish
+                setUserObjectFunc={setUserObjectFunc}
+                userObject={userObject}
+                profile={profile}
+                fillProfileArray={fillProfileArray}
+                profileArray={profileArray}
+              />
+            </Route>
+            <Route exact path="/:username/likes">
+              <ProfileLikes
                 setUserObjectFunc={setUserObjectFunc}
                 userObject={userObject}
                 profile={profile}
