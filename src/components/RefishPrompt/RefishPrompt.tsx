@@ -26,9 +26,7 @@ function RefishPrompt(props: any) {
         refish: true,
       };
       const newUserObject = userObject;
-      newUserObject.fish = newUserObject.fish.filter(
-        (element: any) => element.fishID !== fishObject.fishID,
-      );
+      
       newUserObject.fish.push(newFishRefObject);
       await updateDoc(doc(db, 'users', userObject.uid), {
         fish: newUserObject.fish,

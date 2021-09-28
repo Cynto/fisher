@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { getDoc, doc } from 'firebase/firestore';
 import uniqid from 'uniqid';
 
-import './ProfileFish.css';
 import { db } from '../../Firebase';
 import SingleFish from '../SingleFish/SingleFish';
 import createTimeStamp from '../../api/CreateTimestamp';
 
-function ProfileFish(props: any) {
+function ProfileMedia(props: any) {
   const { profile, userObject, setUserObjectFunc, profileArray } = props;
   // eslint-disable-next-line no-unused-vars
   const [profileFishArray, setProfileFishArray] = useState<any[]>([]);
@@ -23,18 +22,25 @@ function ProfileFish(props: any) {
         const fishRef = await getDoc(doc(db, 'fish', item.fishID));
         if (fishRef.exists()) {
           const fishObject = fishRef.data();
-          
-          fishObject.refish = updatedProfile.fish[index].refish;
-          fishObject.date = createTimeStamp(fishObject);
-          fishObject.fishedAt = updatedProfile.fish[index].createdAt;
-          newArray.push(fishObject);
+          if (
+            fishObject.imgLink !== '' &&
+            fishObject.username === profile.username
+          ) {
+            fishObject.refish = updatedProfile.fish[index].refish;
+            fishObject.date = createTimeStamp(fishObject);
+            fishObject.fishedAt = updatedProfile.fish[index].createdAt;
+            newArray.push(fishObject);
+          }
         }
       }),
     );
     newArray.sort(
       (a: any, b: any) => a.fishedAt.toDate() - b.fishedAt.toDate(),
     );
+    
     newArray.reverse();
+    console.log(newArray);
+
     setProfileFishArray(newArray);
   };
 
@@ -59,4 +65,4 @@ function ProfileFish(props: any) {
   );
 }
 
-export default ProfileFish;
+export default ProfileMedia;

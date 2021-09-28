@@ -11,6 +11,8 @@ import EditProfile from '../EditProfile/EditProfile';
 import ProfileDoesntExist from '../ProfileDoesntExist/ProfileDoesntExist';
 import BigProfilePic from '../BigProfilePic/BigProfilePic';
 import BigBanner from '../BigBanner/BigBanner';
+import ProfileFishAndReplies from '../ProfileFishAndReplies/ProfileFishAndReplies';
+import ProfileMedia from '../ProfileMedia/ProfileMedia';
 
 function Profile(props: any) {
   const {
@@ -63,6 +65,24 @@ function Profile(props: any) {
             </Route>
             <Route exact path="/:username/likes">
               <ProfileLikes
+                setUserObjectFunc={setUserObjectFunc}
+                userObject={userObject}
+                profile={profile}
+                fillProfileArray={fillProfileArray}
+                profileArray={profileArray}
+              />
+            </Route>
+            <Route path="/:username/with_replies">
+              <ProfileFishAndReplies
+                setUserObjectFunc={setUserObjectFunc}
+                userObject={userObject}
+                profile={profile}
+                fillProfileArray={fillProfileArray}
+                profileArray={profileArray}
+              />
+            </Route>
+            <Route path="/:username/media">
+              <ProfileMedia
                 setUserObjectFunc={setUserObjectFunc}
                 userObject={userObject}
                 profile={profile}
