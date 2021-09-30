@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Route } from 'react-router-dom';
 import {
   collection,
   query,
@@ -12,6 +12,7 @@ import {
 import { db } from '../../Firebase';
 import './DetailedFish.css';
 import DetailedButtons from './DetailedButtons/DetailedButtons';
+import ReplyPrompt from '../ReplyPrompt/ReplyPrompt';
 
 function DetailedFish(props: any) {
   const { userObject, setUserObjectFunc } = props;
@@ -82,8 +83,20 @@ function DetailedFish(props: any) {
       <div className="detailed-date-container">
         <p>{fishObject.date}</p>
       </div>
-      
-      <DetailedButtons getFish={getFish} userObject={userObject} fishObject={fishObject} setUserObjectFunc={setUserObjectFunc}/>
+
+      <DetailedButtons
+        getFish={getFish}
+        userObject={userObject}
+        fishObject={fishObject}
+        setUserObjectFunc={setUserObjectFunc}
+      />
+      <Route path="/:username/fish/:fishID/reply">
+        <ReplyPrompt
+          userObject={userObject}
+          fishObject={fishObject}
+          setUserObjectFunc={setUserObjectFunc}
+        />
+      </Route>
     </div>
   );
 }

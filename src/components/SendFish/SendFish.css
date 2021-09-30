@@ -11,7 +11,7 @@
   
 }
 
-.send-fish-absolute-container {
+.send-fish-inner-container {
   margin-top: 30px;
   margin-right: auto;
   margin-left: auto;
@@ -20,10 +20,10 @@
   background: white;
   border-radius: 20px;
   display: flex;
+  position: relative;
 }
 .exit-fish-button {
   border: 0;
-  position: relative;
 
   border-radius: 20px;
   font-size: 20px;
@@ -33,7 +33,6 @@
 .exit-fish-pic-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   height: 130px;
   margin-left: 10px;
 }

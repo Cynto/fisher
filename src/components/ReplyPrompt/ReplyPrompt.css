@@ -1,0 +1,47 @@
+.send-reply-prompt-container {
+  margin-top: 30px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 600px;
+
+  background: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.send-fish-inner-container {
+  margin-top: 0;
+}
+.exit-fish-button {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+}
+.original-fish-total-container {
+  display: flex;
+  max-width: 566px;
+  margin-left: 15px;
+  margin-top: 70px;
+  margin-bottom: 30px;
+}
+.original-fish-total-container img {
+  margin-left: 10px;
+}
+.original-fish-content-container {
+  margin-left: 10px;
+}
+.original-fish-total-container p {
+  max-width: 510px;
+
+}
+.replying-to-container {
+  display: flex;
+}
+.replying-to-container p {
+  margin: 0;
+  margin-left: 10px;
+  font-size: 15px;
+  color: rgb(83, 100, 113);
+
+}

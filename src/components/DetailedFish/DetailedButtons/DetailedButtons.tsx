@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import handleLike from '../../../api/HandleLike';
 import handleDislike from '../../../api/HandleDislike';
 import RefishPrompt from '../../RefishPrompt/RefishPrompt';
@@ -34,7 +35,6 @@ function DetailedButtons(props: any) {
     ) {
       setLikeColorClass('heart-symbol-liked');
     }
-    
   }, [userObject]);
 
   useEffect(() => {
@@ -78,7 +78,9 @@ function DetailedButtons(props: any) {
         <p className="grey-p">Likes</p>
       </div>
       <div className="comment-refish-like-container">
-        <i className="fas fa-comment" />
+        <Link to={`/${fishObject.username}/fish/${fishObject.fishID}/reply`}>
+          <i className="fas fa-comment" />
+        </Link>
         <i
           role="button"
           aria-label="Refish button"
