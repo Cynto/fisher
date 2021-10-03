@@ -15,6 +15,7 @@ function SendFishInner(props: any) {
     fishObject,
     reply,
     isHome,
+    getFish,
   } = props;
 
   const fishPicRef = useRef(document.createElement('input'));
@@ -36,33 +37,57 @@ function SendFishInner(props: any) {
     if (fishID === '') {
       fishID = uniqid();
     }
-    const newFishObject = {
-      comments: [],
-      likes: [],
-      name: updatedUserObject.name,
-      username: updatedUserObject.username,
-      profilePic: updatedUserObject.profilePic,
-      refishArray: [],
-      fishText: fishText.value,
-      imgLink,
-      fishID,
-      createdAt: time,
-      reply,
-      replyUsername: reply ? fishObject.username : '',
-    };
-    await setDoc(doc(db, 'fish', fishID), newFishObject);
-    const userFish = {
-      refish: false,
-      fishID,
-      createdBy: userObject.username,
-      createdAt: time,
-    };
-    const newUserObject = updatedUserObject;
-    newUserObject.fish.push(userFish);
-    await setDoc(doc(db, 'users', updatedUserObject.uid), newUserObject);
-    await setUserObjectFunc();
-    if (fillProfileArray) {
-      await fillProfileArray();
+    if (fishText.value !== '' || imgLink !== '') {
+      const newFishObject = {
+        comments: [],
+        likes: [],
+        name: updatedUserObject.name,
+        username: updatedUserObject.username,
+        profilePic: updatedUserObject.profilePic,
+        refishArray: [],
+        fishText: fishText.value,
+        imgLink,
+        fishID,
+        createdAt: time,
+        reply,
+        replyUsername: reply ? fishObject.username : '',
+        originalFishID: reply ? fishObject.fishID : '',
+      };
+      await setDoc(doc(db, 'fish', fishID), newFishObject);
+      const userFish = {
+        refish: false,
+        fishID,
+        createdBy: userObject.username,
+        createdAt: time,
+      };
+      const newUserObject = updatedUserObject;
+      newUserObject.fish.push(userFish);
+      await setDoc(doc(db, 'users', updatedUserObject.uid), newUserObject);
+
+      if (reply) {
+        const updatedOriginalFishDoc = await getDoc(
+          doc(db, 'fish', fishObject.fishID),
+        );
+        if (updatedOriginalFishDoc.exists()) {
+          const updatedOriginalFish = updatedOriginalFishDoc.data();
+          updatedOriginalFish.comments.push(fishID);
+          await setDoc(doc(db, 'fish', fishObject.fishID), updatedOriginalFish);
+        }
+      }
+
+      await setUserObjectFunc();
+      if (fillProfileArray) {
+        await fillProfileArray();
+      }
+      if (getFish) {
+        getFish();
+        const textArea = document.getElementById(
+          'fish-text',
+        ) as HTMLTextAreaElement;
+        if (textArea) {
+          textArea.value = '';
+        }
+      }
     }
   };
 
@@ -88,9 +113,16 @@ function SendFishInner(props: any) {
   return (
     <div
       style={reply ? {} : { marginTop: '30px' }}
-      className={isHome ? '' : 'send-fish-inner-container'}
+      className={
+        isHome
+          ? 'send-fish-inner-container'
+          : 'send-fish-inner-absolute-container'
+      }
     >
-      <div className="exit-fish-pic-container" style={reply ? {} : {justifyContent: 'center', marginTop: '30px'}}>
+      <div
+        className="exit-fish-pic-container"
+        style={reply ? {} : { justifyContent: 'center', marginTop: '30px' }}
+      >
         {' '}
         {!reply ? (
           <button
@@ -103,10 +135,13 @@ function SendFishInner(props: any) {
         ) : null}
         <img src={userObject.profilePic} alt="profile" />
       </div>
-      <div className="right-compose-fish-container" style={reply ? {} : {marginTop: '10px'}}>
+      <div
+        className="right-compose-fish-container"
+        style={reply ? { marginRight: '10px' } : { marginTop: '10px' }}
+      >
         <TextareaAutosize
           id="fish-text"
-          placeholder={reply ? 'Fish your reply' : 'What\'s happening?'}
+          placeholder={reply ? 'Fish your reply' : "What's happening?"}
           maxLength={280}
           style={reply ? { marginTop: 0 } : {}}
         />

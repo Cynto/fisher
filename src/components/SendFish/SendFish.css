@@ -11,7 +11,7 @@
   
 }
 
-.send-fish-inner-container {
+.send-fish-inner-absolute-container {
   margin-top: 30px;
   margin-right: auto;
   margin-left: auto;
@@ -21,6 +21,11 @@
   border-radius: 20px;
   display: flex;
   position: relative;
+}
+.send-fish-inner-container {
+  display: flex;
+  position: relative;
+  margin-top: 10px;
 }
 .exit-fish-button {
   border: 0;

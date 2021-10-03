@@ -48,7 +48,7 @@ function ReplyPrompt(props: any) {
             </div>
             <div className="replying-to-container">
               <p>Replying to</p>
-              <p style={{color: 'orange'}}>@{fishObject.username}</p>
+              <p style={{color: 'orange', marginLeft: '5px'}}>@{fishObject.username}</p>
             </div>
           </div>
         </div>

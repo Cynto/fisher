@@ -10,9 +10,7 @@
   flex-direction: column;
   position: relative;
 }
-.send-fish-inner-container {
-  margin-top: 0;
-}
+
 .exit-fish-button {
   position: absolute;
   left: 15px;

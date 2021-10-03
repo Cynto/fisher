@@ -13,6 +13,8 @@ import { db } from '../../Firebase';
 import './DetailedFish.css';
 import DetailedButtons from './DetailedButtons/DetailedButtons';
 import ReplyPrompt from '../ReplyPrompt/ReplyPrompt';
+import CommentsContainer from '../CommentsContainer/CommentsContainer';
+import SendFishInner from '../SendFishInner/SendFishInner';
 
 function DetailedFish(props: any) {
   const { userObject, setUserObjectFunc } = props;
@@ -85,6 +87,26 @@ function DetailedFish(props: any) {
       </div>
 
       <DetailedButtons
+        getFish={getFish}
+        userObject={userObject}
+        fishObject={fishObject}
+        setUserObjectFunc={setUserObjectFunc}
+      />
+      <div className="replying-to-container" style={{marginTop: '30px', marginLeft: '73px'}}>
+        <p>Replying to</p>
+        <p style={{ color: 'orange', marginLeft: '5px' }}>
+          @{fishObject.username}
+        </p>
+      </div>
+      <SendFishInner
+        reply
+        isHome
+        userObject={userObject}
+        setUserObjectFunc={setUserObjectFunc}
+        fishObject={fishObject}
+        getFish={getFish}
+      />
+      <CommentsContainer
         getFish={getFish}
         userObject={userObject}
         fishObject={fishObject}

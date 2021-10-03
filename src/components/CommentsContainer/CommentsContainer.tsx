@@ -1,38 +1,53 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import ProfileFishStats from '../ProfileFishStats/ProfileFishStats';
-import './SingleFish.css';
+import { getDoc, doc } from 'firebase/firestore';
+import { db } from '../../Firebase';
+import createTimeStamp from '../../api/CreateTimestamp';
 import DeleteFishPrompt from '../DeleteFishPrompt/DeleteFishPrompt';
+import ProfileFishStats from '../ProfileFishStats/ProfileFishStats';
 
-function SingleFish(props: any) {
-  const { profile, userObject, setUserObjectFunc, item, fillProfileFishArray } =
-    props;
+function CommentsContainer(props: any) {
+  const { userObject, fishObject, setUserObjectFunc } = props;
+  const [commentsArray, setCommentsArray] = useState<any>([]);
   const [deletePrompt, setDeletePrompt] = useState(false);
 
-  return (
-    <Link
-      to={`/${item.username}/fish/${item.fishID}`}
-      style={{ textDecoration: 'none' }}
-    >
-      <div className="total-single-fish-container">
-        {deletePrompt ? (
-          <DeleteFishPrompt
-            userObject={userObject}
-            item={item}
-            setDeletePrompt={setDeletePrompt}
-            setUserObjectFunc={setUserObjectFunc}
-            fillProfileFishArray={fillProfileFishArray}
-          />
-        ) : null}
-        {item.refish ? (
-          <div className="refish-container">
-            <i className="fas fa-retweet" />
-            <p>{`${profile.name} Refished`}</p>{' '}
-          </div>
-        ) : null}
+  const fillCommentsArray = async () => {
+    const newArray: any = [];
+    console.log(fishObject)
+    await Promise.all(
+      fishObject.comments.map(async (fishID: string) => {
+        console.log(fishID)
+        const commentRef = await getDoc(doc(db, 'fish', fishID));
+        if (commentRef.exists()) {
+          const commentObject = commentRef.data();
 
-        <div className="single-fish-container">
+          commentObject.date = createTimeStamp(commentObject);
+
+          newArray.push(commentObject);
+        }
+      }),
+    );
+    newArray.reverse()
+    setCommentsArray(newArray);
+    console.log(newArray)
+  };
+  useEffect(() => {
+    if (fishObject.comments?.length > 0) {
+      fillCommentsArray();
+    }
+  }, [fishObject]);
+  return (
+    <div className="comments-container">
+      {commentsArray.map((item: any) => (
+        <div className="single-fish-container" style={{marginTop: '10px', borderBottom: '1px solid grey'}}>
+          {deletePrompt ? (
+            <DeleteFishPrompt
+              userObject={userObject}
+              item={item}
+              setDeletePrompt={setDeletePrompt}
+              setUserObjectFunc={setUserObjectFunc}
+            />
+          ) : null}
           <div className="profile-pic-fish-container">
             <Link to={`/${item.username}`} style={{ textDecoration: 'none' }}>
               <img
@@ -68,7 +83,10 @@ function SingleFish(props: any) {
               <p>{item.date}</p>
             </div>
             {item.reply ? (
-              <div className="replying-to-container" style={{marginTop: '5px'}}>
+              <div
+                className="replying-to-container"
+                style={{ marginTop: '5px' }}
+              >
                 <p>Replying to</p>
                 <p style={{ color: 'orange', marginLeft: '5px' }}>
                   @{item.replyUsername}
@@ -79,22 +97,16 @@ function SingleFish(props: any) {
             <div className="fish-text-container">
               <p>{item.fishText}</p>
             </div>
-            {item.imgLink !== '' ? (
-              <div className="fish-image-container">
-                <img src={item.imgLink} alt="fish upload" />
-              </div>
-            ) : null}
             <ProfileFishStats
               item={item}
               userObject={userObject}
               setUserObjectFunc={setUserObjectFunc}
-              fillProfileFishArray={fillProfileFishArray}
             />
           </div>
         </div>
-      </div>
-    </Link>
+      ))}
+    </div>
   );
 }
 
-export default SingleFish;
+export default CommentsContainer;
