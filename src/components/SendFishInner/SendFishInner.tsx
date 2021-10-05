@@ -1,8 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import uniqid from 'uniqid';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from 'firebase/storage';
 import { setDoc, doc, Timestamp, getDoc } from 'firebase/firestore';
 import { storage, db } from '../../Firebase';
 
@@ -19,25 +24,57 @@ function SendFishInner(props: any) {
   } = props;
 
   const fishPicRef = useRef(document.createElement('input'));
+  const fishTextRef = useRef(document.createElement('textarea'));
   // eslint-disable-next-line no-unused-vars
   const [imgLink, setImgLink] = useState('');
+  const [tempImgLink, setTempImgLink] = useState('');
   const [ID, setID] = useState('');
 
   const history = useHistory();
 
+  const handleImageUpload = async (temp: boolean) => {
+    if (fishPicRef.current.files) {
+      const photoData = fishPicRef.current.files[0];
+      const photoID = uniqid();
+      setID(photoID);
+      if (photoData) {
+        if (temp) {
+          const photoRef = ref(storage, `images/temp/${userObject.username}`);
+
+          await uploadBytesResumable(photoRef, photoData);
+
+          getDownloadURL(
+            ref(storage, `images/temp/${userObject.username}`),
+          ).then((url: string) => setTempImgLink(url));
+        } else {
+          const tempPhotoRef = ref(
+            storage,
+            `images/temp/${userObject.username}`,
+          );
+          await deleteObject(tempPhotoRef);
+
+          const photoRef = ref(
+            storage,
+            `images/fish_images/${userObject.username}-${photoID}`,
+          );
+          await uploadBytesResumable(photoRef, photoData);
+          await getDownloadURL(photoRef).then((url: string) => setImgLink(url));
+        }
+      }
+    }
+  };
+
   const handleFish = async () => {
     const userDoc = await getDoc(doc(db, 'users', userObject.uid));
     const updatedUserObject: any = userDoc.data();
-    const fishText = document.getElementById(
-      'fish-text',
-    ) as HTMLTextAreaElement;
+    const fishText = fishTextRef.current.value;
     const time = Timestamp.now();
-
+    console.log(ID);
     let fishID = ID;
     if (fishID === '') {
       fishID = uniqid();
     }
-    if (fishText.value !== '' || imgLink !== '') {
+    if (fishText !== '' || imgLink !== '') {
       const newFishObject = {
         comments: [],
         likes: [],
@@ -45,7 +82,7 @@ function SendFishInner(props: any) {
         username: updatedUserObject.username,
         profilePic: updatedUserObject.profilePic,
         refishArray: [],
-        fishText: fishText.value,
+        fishText,
         imgLink,
         fishID,
         createdAt: time,
@@ -90,26 +127,12 @@ function SendFishInner(props: any) {
       }
     }
   };
-
-  const handleImageUpload = async () => {
-    if (fishPicRef.current.files) {
-      const photoData = fishPicRef.current.files[0];
-      const photoID = uniqid();
-      setID(photoID);
-      if (photoData) {
-        const photoRef = ref(
-          storage,
-          `images/fish_images/${userObject.username}-${photoID}`,
-        );
-        // eslint-disable-next-line no-unused-vars
-        const uploadTask = await uploadBytesResumable(photoRef, photoData);
-
-        getDownloadURL(
-          ref(storage, `images/fish_images/${userObject.username}-${photoID}`),
-        ).then((url: string) => setImgLink(url));
-      }
+  useEffect(() => {
+    if (imgLink !== '' || fishTextRef.current.value !== '') {
+      handleFish();
     }
-  };
+  }, [imgLink]);
+
   return (
     <div
       style={reply ? {} : { marginTop: '30px' }}
@@ -146,10 +169,10 @@ function SendFishInner(props: any) {
           style={reply ? { marginTop: 0 } : {}}
         />
 
-        {imgLink !== '' ? (
+        {tempImgLink !== '' ? (
           <div className="image-upload-container">
             {' '}
-            <img src={imgLink} alt="upload" />{' '}
+            <img src={tempImgLink} alt="upload" />{' '}
             <button type="button" onClick={() => setImgLink('')}>
               X
             </button>
@@ -163,13 +186,13 @@ function SendFishInner(props: any) {
               id="pic-upload"
               type="file"
               accept=".jpeg, .jpg, .png, .webp"
-              onChange={handleImageUpload}
+              onChange={() => handleImageUpload(true)}
             />
           </label>
           <button
             type="button"
             onClick={async () => {
-              await handleFish();
+              await handleImageUpload(false);
               if (reply) {
                 history.push(
                   `/${fishObject.username}/fish/${fishObject.fishID}`,

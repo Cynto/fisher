@@ -9,7 +9,11 @@ import {
   setDoc,
   deleteDoc,
 } from 'firebase/firestore';
-import { db } from '../../Firebase';
+import {
+  ref,
+  deleteObject,
+} from 'firebase/storage';
+import { db, storage } from '../../Firebase';
 import './DeleteFishPrompt.css';
 
 function DeleteFishPrompt(props: any) {
@@ -36,6 +40,10 @@ function DeleteFishPrompt(props: any) {
     const itemDoc = await getDoc(itemRef);
     if (itemDoc.exists()) {
       const itemObject = itemDoc.data();
+      if(itemObject.imgLink !== '') {
+        const photoRef = ref(storage, `images/fish_images/${itemObject.username}-${itemObject.fishID}`)
+        await deleteObject(photoRef)
+      }
       await itemObject?.likes.forEach(async (element: any) => {
         const q = query(
           collection(db, 'users'),

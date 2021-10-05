@@ -26,6 +26,7 @@
   display: flex;
   position: relative;
   margin-top: 10px;
+  border-bottom: 1px solid grey;
 }
 .exit-fish-button {
   border: 0;
