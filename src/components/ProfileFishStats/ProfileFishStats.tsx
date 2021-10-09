@@ -16,25 +16,33 @@ function ProfileFishStats(props: any) {
   const [unrefishPrompt, setUnrefishPrompt] = useState(false);
 
   useEffect(() => {
-    if (userObject?.likes?.some((element: any) => element.fishID === item.fishID)) {
+    if (
+      userObject?.likes?.some((element: any) => element.fishID === item.fishID)
+    ) {
       setLikeColorClass('likes-symbol-container-liked');
     }
   }, [userObject]);
 
   const clickHeart = async (e: any) => {
-    if (userObject?.likes?.some((element: any) => element.fishID === item.fishID)) {
+    if (
+      userObject?.likes?.some((element: any) => element.fishID === item.fishID)
+    ) {
       e.preventDefault();
       setLikesNumber((oldValue: number) => oldValue - 1);
       setLikeColorClass('likes-symbol-container');
       await handleDislike(item.fishID);
-      await fillProfileFishArray();
+      if (fillProfileFishArray) {
+        await fillProfileFishArray();
+      }
       setUserObjectFunc();
     } else {
       e.preventDefault();
       setLikeColorClass('likes-symbol-container-liked');
       setLikesNumber((oldValue: number) => oldValue + 1);
       await handleLike(item.fishID);
-      await fillProfileFishArray();
+      if (fillProfileFishArray) {
+        await fillProfileFishArray();
+      }
       setUserObjectFunc();
     }
   };
@@ -64,7 +72,6 @@ function ProfileFishStats(props: any) {
           setRefishPrompt={setRefishPrompt}
           setRefishColorClass={setRefishColorClass}
           fillProfileFishArray={fillProfileFishArray}
-
         />
       ) : null}
       <div

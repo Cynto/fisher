@@ -36,6 +36,15 @@
   cursor: pointer;
   background: none;
 }
+.exit-fish-pic-container-home {
+  display: flex;
+  flex-direction: column;
+  height: 130px;
+}
+.exit-fish-pic-container-home img {
+  width: 48px;
+  
+}
 .exit-fish-pic-container {
   display: flex;
   flex-direction: column;

@@ -24,7 +24,6 @@ function SendFishInner(props: any) {
   } = props;
 
   const fishPicRef = useRef(document.createElement('input'));
-  const fishTextRef = useRef(document.createElement('textarea'));
   // eslint-disable-next-line no-unused-vars
   const [imgLink, setImgLink] = useState('');
   const [tempImgLink, setTempImgLink] = useState('');
@@ -67,9 +66,12 @@ function SendFishInner(props: any) {
   const handleFish = async () => {
     const userDoc = await getDoc(doc(db, 'users', userObject.uid));
     const updatedUserObject: any = userDoc.data();
-    const fishText = fishTextRef.current.value;
+
+    const fishTextArea: any = isHome
+      ? document.getElementById('fish-text-home')
+      : document.getElementById('fish-text');
+    const fishText = fishTextArea.value;
     const time = Timestamp.now();
-    console.log(ID);
     let fishID = ID;
     if (fishID === '') {
       fishID = uniqid();
@@ -128,7 +130,11 @@ function SendFishInner(props: any) {
     }
   };
   useEffect(() => {
-    if (imgLink !== '' || fishTextRef.current.value !== '') {
+    const fishTextArea: any = isHome
+      ? document.getElementById('fish-text-home')
+      : document.getElementById('fish-text');
+    const fishText = fishTextArea.value;
+    if (imgLink !== '' || fishText !== '') {
       handleFish();
     }
   }, [imgLink]);
@@ -143,7 +149,9 @@ function SendFishInner(props: any) {
       }
     >
       <div
-        className="exit-fish-pic-container"
+        className={
+          isHome ? 'exit-fish-pic-container-home' : 'exit-fish-pic-container'
+        }
         style={reply ? {} : { justifyContent: 'center', marginTop: '30px' }}
       >
         {' '}
@@ -163,7 +171,7 @@ function SendFishInner(props: any) {
         style={reply ? { marginRight: '10px' } : { marginTop: '10px' }}
       >
         <TextareaAutosize
-          id="fish-text"
+          id={isHome ? 'fish-text-home' : 'fish-text'}
           placeholder={reply ? 'Fish your reply' : "What's happening?"}
           maxLength={280}
           style={reply ? { marginTop: 0 } : {}}
@@ -192,7 +200,15 @@ function SendFishInner(props: any) {
           <button
             type="button"
             onClick={async () => {
-              await handleImageUpload(false);
+              if (fishPicRef.current.files) {
+                const photoData = fishPicRef.current.files[0];
+                if (photoData) {
+                  await handleImageUpload(false);
+                } else {
+                  await handleFish();
+                }
+              }
+
               if (reply) {
                 history.push(
                   `/${fishObject.username}/fish/${fishObject.fishID}`,

@@ -1,12 +1,10 @@
 .total-single-fish-container {
-  border-bottom: 1px solid grey;
   margin-top: 20px;
 }
 .single-fish-container {
   display: flex;
   width: 566px;
 
-  margin-left: 15px;
 }
 .profile-pic-fish-container {
   height: 100%;

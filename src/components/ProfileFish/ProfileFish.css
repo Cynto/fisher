@@ -1,9 +1,9 @@
 .all-fish-container {
-  
+  margin-left: 15px;
 }
 .refish-container {
   display: flex;
-  margin-left: 40px;
+  margin-left: 24px;
   color: rgb(83, 100, 113);
   margin-bottom: 6px;
 }

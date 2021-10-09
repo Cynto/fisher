@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
-import { useParams, Link, Route } from 'react-router-dom';
+import { useParams, Link, Route, withRouter } from 'react-router-dom';
 import {
   collection,
   query,
@@ -15,11 +15,14 @@ import DetailedButtons from './DetailedButtons/DetailedButtons';
 import ReplyPrompt from '../ReplyPrompt/ReplyPrompt';
 import CommentsContainer from '../CommentsContainer/CommentsContainer';
 import SendFishInner from '../SendFishInner/SendFishInner';
+import createTimeStamp from '../../api/CreateTimestamp';
+import SingleFish from '../SingleFish/SingleFish';
 
 function DetailedFish(props: any) {
   const { userObject, setUserObjectFunc } = props;
   const [profile, setProfile] = useState<any>({});
   const [fishObject, setFishObject] = useState<any>({});
+  const [originalFishArray, setOriginalFishArray] = useState<any>([]);
   const { username, fishID } =
     useParams<{ username: string; fishID: string }>();
 
@@ -43,6 +46,30 @@ function DetailedFish(props: any) {
       setFishObject(newFishObject);
     }
   };
+  const getOriginal = async (item: any) => {
+    console.log(item);
+    if (item.reply) {
+      const originalFishDoc = await getDoc(
+        doc(db, 'fish', item.originalFishID),
+      );
+      if (originalFishDoc.exists()) {
+        const originalFishObject = originalFishDoc.data();
+        originalFishObject.date = createTimeStamp(originalFishObject);
+        if(originalFishObject.reply){
+          await getOriginal(originalFishObject)
+        }
+        setOriginalFishArray((oldArray: any[]) => {
+          const newArray = oldArray.filter(
+            (arrayItem) => arrayItem.fishID !== originalFishObject.fishID,
+          );
+          return [...newArray, originalFishObject];
+        });
+      }
+    }
+  };
+  useEffect(() => {
+    getProfile();
+  }, [fishID]);
   useEffect(() => {
     getProfile();
   }, []);
@@ -51,6 +78,12 @@ function DetailedFish(props: any) {
       getFish();
     }
   }, [profile]);
+  useEffect(() => {
+    getOriginal(fishObject);
+  }, [fishObject]);
+  useEffect(() => {
+    console.log(originalFishArray);
+  }, [originalFishArray]);
   return (
     <div className="detailed-fish-container">
       <div className="profile-top">
@@ -61,6 +94,11 @@ function DetailedFish(props: any) {
           <h2 id="detailed-fish-title">Fish</h2>
         </div>
       </div>
+      {fishObject.reply
+        ? originalFishArray.map((item: any) => (
+            <SingleFish item={item} userObject={userObject} />
+          ))
+        : null}
       <div className="detailed-profile-name-container">
         <img
           src={profile.profilePic}
@@ -74,6 +112,14 @@ function DetailedFish(props: any) {
           </div>
         </Link>
       </div>
+      {fishObject.reply ? (
+        <div className="replying-to-container" style={{ marginTop: '10px' }}>
+          <p style={{ marginLeft: 0 }}>Replying to</p>
+          <p style={{ color: 'orange', marginLeft: '5px' }}>
+            @{fishObject.username}
+          </p>
+        </div>
+      ) : null}
       <div className="detailed-fish-text-container">
         <p>{fishObject.fishText}</p>
       </div>
@@ -92,7 +138,10 @@ function DetailedFish(props: any) {
         fishObject={fishObject}
         setUserObjectFunc={setUserObjectFunc}
       />
-      <div className="replying-to-container" style={{marginTop: '30px', marginLeft: '73px'}}>
+      <div
+        className="replying-to-container"
+        style={{ marginTop: '30px', marginLeft: '65px' }}
+      >
         <p>Replying to</p>
         <p style={{ color: 'orange', marginLeft: '5px' }}>
           @{fishObject.username}
@@ -123,4 +172,4 @@ function DetailedFish(props: any) {
   );
 }
 
-export default DetailedFish;
+export default withRouter(DetailedFish);
