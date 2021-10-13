@@ -9,6 +9,7 @@ import {
   doc,
   getDoc,
 } from 'firebase/firestore';
+import uniqid from 'uniqid';
 import { db } from '../../Firebase';
 import './DetailedFish.css';
 import DetailedButtons from './DetailedButtons/DetailedButtons';
@@ -47,23 +48,27 @@ function DetailedFish(props: any) {
     }
   };
   const getOriginal = async (item: any) => {
-    console.log(item);
     if (item.reply) {
       const originalFishDoc = await getDoc(
         doc(db, 'fish', item.originalFishID),
       );
       if (originalFishDoc.exists()) {
         const originalFishObject = originalFishDoc.data();
-        originalFishObject.date = createTimeStamp(originalFishObject);
-        if(originalFishObject.reply){
-          await getOriginal(originalFishObject)
+
+        if (originalFishObject.fishID !== fishObject.fishID) {
+          originalFishObject.date = createTimeStamp(originalFishObject);
+          if (originalFishObject.reply) {
+            await getOriginal(originalFishObject);
+          }
+          setOriginalFishArray((oldArray: any[]) => {
+            const newArray = oldArray.filter(
+              (arrayItem) => arrayItem.fishID !== originalFishObject.fishID,
+            );
+            newArray.push(originalFishObject);
+
+            return newArray;
+          });
         }
-        setOriginalFishArray((oldArray: any[]) => {
-          const newArray = oldArray.filter(
-            (arrayItem) => arrayItem.fishID !== originalFishObject.fishID,
-          );
-          return [...newArray, originalFishObject];
-        });
       }
     }
   };
@@ -79,11 +84,10 @@ function DetailedFish(props: any) {
     }
   }, [profile]);
   useEffect(() => {
+    setOriginalFishArray([]);
     getOriginal(fishObject);
   }, [fishObject]);
-  useEffect(() => {
-    console.log(originalFishArray);
-  }, [originalFishArray]);
+
   return (
     <div className="detailed-fish-container">
       <div className="profile-top">
@@ -96,7 +100,7 @@ function DetailedFish(props: any) {
       </div>
       {fishObject.reply
         ? originalFishArray.map((item: any) => (
-            <SingleFish item={item} userObject={userObject} />
+            <SingleFish key={uniqid()} item={item} userObject={userObject} />
           ))
         : null}
       <div className="detailed-profile-name-container">

@@ -1,5 +1,6 @@
 .total-single-fish-container {
   margin-top: 20px;
+  cursor: pointer;
 }
 .single-fish-container {
   display: flex;

@@ -8,6 +8,7 @@ import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import MainNav from './components/MainNav/MainNav';
 import DetailedFish from './components/DetailedFish/DetailedFish';
+import HomePage from './components/HomePage/HomePage';
 
 function App() {
   const [profileArray, setProfileArray] = useState([]);
@@ -47,26 +48,29 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <MainNav
+          userObject={userObject}
+          isHome={false}
+          setUserObjectFunc={setUserObjectFunc}
+          fillProfileArray={fillProfileArray}
+        />
         <Switch>
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/:username/fish/:fishID">
-            <MainNav
+          <Route exact path="/home">
+            <HomePage
               userObject={userObject}
-              isHome={false}
               setUserObjectFunc={setUserObjectFunc}
-              fillProfileArray={fillProfileArray}
             />
-            <DetailedFish userObject={userObject} setUserObjectFunc={setUserObjectFunc}/>
+          </Route>
+          <Route path="/:username/fish/:fishID">
+            <DetailedFish
+              userObject={userObject}
+              setUserObjectFunc={setUserObjectFunc}
+            />
           </Route>
           <Route path="/:username">
-            <MainNav
-              userObject={userObject}
-              isHome={false}
-              setUserObjectFunc={setUserObjectFunc}
-              fillProfileArray={fillProfileArray}
-            />
             <Profile
               profileArray={profileArray}
               setProfileArray={setProfileArray}

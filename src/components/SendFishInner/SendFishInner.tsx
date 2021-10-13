@@ -152,10 +152,9 @@ function SendFishInner(props: any) {
         className={
           isHome ? 'exit-fish-pic-container-home' : 'exit-fish-pic-container'
         }
-        style={reply ? {} : { justifyContent: 'center', marginTop: '30px' }}
       >
         {' '}
-        {!reply ? (
+        {!isHome && !reply ? (
           <button
             className="exit-fish-button"
             type="button"
@@ -174,6 +173,7 @@ function SendFishInner(props: any) {
           id={isHome ? 'fish-text-home' : 'fish-text'}
           placeholder={reply ? 'Fish your reply' : "What's happening?"}
           maxLength={280}
+          className={isHome ? 'text-area-home' : 'text-area-absolute'}
           style={reply ? { marginTop: 0 } : {}}
         />
 
@@ -213,7 +213,7 @@ function SendFishInner(props: any) {
                 history.push(
                   `/${fishObject.username}/fish/${fishObject.fishID}`,
                 );
-              } else {
+              } else if (!reply && !isHome) {
                 setSendFish(false);
               }
             }}

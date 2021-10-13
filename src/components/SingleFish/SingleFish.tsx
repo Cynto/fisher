@@ -1,21 +1,30 @@
 import React, { useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import ProfileFishStats from '../ProfileFishStats/ProfileFishStats';
 import './SingleFish.css';
 import DeleteFishPrompt from '../DeleteFishPrompt/DeleteFishPrompt';
 
 function SingleFish(props: any) {
-  const { profile, userObject, setUserObjectFunc, item, fillProfileFishArray } =
-    props;
+  const {
+    reply,
+    profile,
+    userObject,
+    setUserObjectFunc,
+    item,
+    fillProfileFishArray,
+  } = props;
   const [deletePrompt, setDeletePrompt] = useState(false);
-
+  const history = useHistory();
   return (
     <Link
       to={`/${item.username}/fish/${item.fishID}`}
       style={{ textDecoration: 'none' }}
     >
-      <div className="total-single-fish-container">
+      <div
+        className="total-single-fish-container"
+        style={reply ? { borderBottom: '1px solid grey' } : {}}
+      >
         {deletePrompt ? (
           <DeleteFishPrompt
             userObject={userObject}
@@ -34,13 +43,16 @@ function SingleFish(props: any) {
 
         <div className="single-fish-container">
           <div className="profile-pic-fish-container">
-            <Link to={`/${item.username}`} style={{ textDecoration: 'none' }}>
-              <img
-                src={item.profilePic}
-                className="profile-pic-fish"
-                alt="profile"
-              />
-            </Link>
+            <img
+              src={item.profilePic}
+              role="presentation"
+              className="profile-pic-fish"
+              alt="profile"
+              onClick={(e) => {
+                e.preventDefault();
+                history.push(`/${item.username}`);
+              }}
+            />
           </div>
           <div className="right-fish-container">
             {item?.username === userObject.username ? (
@@ -57,18 +69,32 @@ function SingleFish(props: any) {
             ) : null}
 
             <div className="name-date-container">
-              <Link
-                to={`/${item.username}`}
-                style={{ textDecoration: 'none', display: 'flex' }}
+              <button
+                type="button"
+                style={{
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: 0,
+                  display: 'flex',
+                  background: 'none',
+                }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  history.push(`/${item.username}`);
+                }}
               >
                 <h4>{item.name}</h4>
                 <p>@{item.username}</p>
-              </Link>
+              </button>
+
               <span>·</span>
               <p>{item.date}</p>
             </div>
             {item.reply ? (
-              <div className="replying-to-container" style={{marginTop: '5px'}}>
+              <div
+                className="replying-to-container"
+                style={{ marginTop: '5px' }}
+              >
                 <p>Replying to</p>
                 <p style={{ color: 'orange', marginLeft: '5px' }}>
                   @{item.replyUsername}

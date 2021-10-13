@@ -31,11 +31,12 @@ function DetailedButtons(props: any) {
   };
   useEffect(() => {
     if (
-      userObject.likes.some((element: any) => element === fishObject.fishID)
+      userObject.likes.some((element: any) => element.fishID === fishObject.fishID)
     ) {
+      
       setLikeColorClass('heart-symbol-liked');
     }
-  }, [userObject]);
+  }, [userObject, fishObject]);
 
   useEffect(() => {
     setLikeNumber(fishObject?.likes?.length);
