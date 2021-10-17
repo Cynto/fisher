@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { auth } from '../../Firebase';
 import SignOutPrompt from '../SignOutPrompt/SignOutPrompt';
 import SendFish from '../SendFish/SendFish';
 
@@ -10,7 +11,7 @@ function MainNav(props: any) {
   const [signOutPrompt, setSignOutPrompt] = useState(false);
   const [sendFish, setSendFish] = useState(false);
 
-  const history = useHistory()
+  const history = useHistory();
   return (
     <div className="main-nav-container">
       {signOutPrompt ? (
@@ -32,7 +33,15 @@ function MainNav(props: any) {
         <Link to="/home">
           <i className="fas fa-home" style={{ color: 'black' }} />
         </Link>
-        <Link to={`/${userObject.username}`} onClick={() => {history.push(`/${userObject.username}`) ;window.location.reload()}}>
+        <Link
+          to={auth.currentUser ? `/${userObject.username}` : '/login'}
+          onClick={() => {
+            if (auth.currentUser) {
+              history.push(`/${userObject.username}`);
+              window.location.reload();
+            }
+          }}
+        >
           <i className="fas fa-user-circle" style={{ color: 'black' }} />
         </Link>
 

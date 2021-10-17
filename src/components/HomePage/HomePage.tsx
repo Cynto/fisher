@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import uniqid from 'uniqid';
+import { useHistory } from 'react-router-dom';
 import {
   getDoc,
   doc,
@@ -8,7 +9,7 @@ import {
   collection,
   getDocs,
 } from 'firebase/firestore';
-import { db } from '../../Firebase';
+import { db, auth } from '../../Firebase';
 import SendFishInner from '../SendFishInner/SendFishInner';
 import createTimeStamp from '../../api/CreateTimestamp';
 import SingleFish from '../SingleFish/SingleFish';
@@ -16,6 +17,8 @@ import SingleFish from '../SingleFish/SingleFish';
 function HomePage(props: any) {
   const { userObject, setUserObjectFunc } = props;
   const [homePageFishArray, setHomePageFishArray] = useState<any[]>([]);
+
+  const history = useHistory();
 
   const fillHomePageArray = async () => {
     const newArray: any[] = [];
@@ -31,7 +34,7 @@ function HomePage(props: any) {
             fishObject.refish = updatedUserObject.fish[index].refish;
             fishObject.date = createTimeStamp(fishObject);
             fishObject.fishedAt = updatedUserObject.fish[index].createdAt;
-            newArray.push(fishObject)
+            newArray.push(fishObject);
           }
         }
       }),
@@ -59,8 +62,6 @@ function HomePage(props: any) {
                 if (fishRef.exists()) {
                   const fishObject = fishRef.data();
                   if (!fishObject.reply) {
-                    console.log(fishObject);
-
                     fishObject.refish = fUser.fish[index].refish;
                     fishObject.date = createTimeStamp(fishObject);
                     fishObject.fishedAt = fUser.fish[index].createdAt;
@@ -87,16 +88,26 @@ function HomePage(props: any) {
       fillHomePageArray();
     }
   }, [userObject]);
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (!user) {
+        history.push('/login');
+      }
+    });
+  }, []);
   return (
     <div className="home-page">
       <div className="profile-inner">
-        <h2>Home</h2>
-        <SendFishInner
-          reply={false}
-          isHome
-          userObject={userObject}
-          setUserObjectFunc={setUserObjectFunc}
-        />
+        <div className="top-home-container" style={{ marginLeft: '15px' }}>
+          <h2>Home</h2>
+          <SendFishInner
+            reply={false}
+            isHome
+            userObject={userObject}
+            setUserObjectFunc={setUserObjectFunc}
+          />
+        </div>
+
         <div className="all-fish-container">
           {homePageFishArray.length >= 1
             ? homePageFishArray.map((item: any) => (

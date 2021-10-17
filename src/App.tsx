@@ -48,29 +48,41 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <MainNav
-          userObject={userObject}
-          isHome={false}
-          setUserObjectFunc={setUserObjectFunc}
-          fillProfileArray={fillProfileArray}
-        />
         <Switch>
           <Route path="/login">
             <Login />
           </Route>
           <Route exact path="/home">
+            <MainNav
+              userObject={userObject}
+              isHome={false}
+              setUserObjectFunc={setUserObjectFunc}
+              fillProfileArray={fillProfileArray}
+            />
             <HomePage
               userObject={userObject}
               setUserObjectFunc={setUserObjectFunc}
             />
           </Route>
           <Route path="/:username/fish/:fishID">
+            <MainNav
+              userObject={userObject}
+              isHome={false}
+              setUserObjectFunc={setUserObjectFunc}
+              fillProfileArray={fillProfileArray}
+            />
             <DetailedFish
               userObject={userObject}
               setUserObjectFunc={setUserObjectFunc}
             />
           </Route>
           <Route path="/:username">
+            <MainNav
+              userObject={userObject}
+              isHome={false}
+              setUserObjectFunc={setUserObjectFunc}
+              fillProfileArray={fillProfileArray}
+            />
             <Profile
               profileArray={profileArray}
               setProfileArray={setProfileArray}

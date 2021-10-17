@@ -68,3 +68,12 @@
   margin-right: 10px;
   margin-left: 5px;
 }
+@media only screen and (max-width: 600px) {
+  .detailed-fish-container {
+
+  }
+  .detailed-fish-image-container {
+    width: 350px;
+  }
+  
+ }

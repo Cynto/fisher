@@ -22,7 +22,7 @@ function Login() {
 
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        history.push('/');
+        history.push('/home');
       })
       .catch((error) => {
         console.log(error.code);
@@ -41,7 +41,7 @@ function Login() {
       className="login-page"
       style={
         !hasAccount
-          ? { backgroundColor: 'rgba(0, 0, 0, 0.4)', minHeight: '125vh' }
+          ? { backgroundColor: 'rgba(0, 0, 0, 0.4)', minHeight: '125vh', minWidth: '100vw' }
           : { backgroundColor: 'white', minHeight: '100vh' }
       }
     >

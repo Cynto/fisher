@@ -128,6 +128,8 @@ function SendFishInner(props: any) {
         }
       }
     }
+    setTempImgLink('');
+    setImgLink('');
   };
   useEffect(() => {
     const fishTextArea: any = isHome
@@ -152,6 +154,7 @@ function SendFishInner(props: any) {
         className={
           isHome ? 'exit-fish-pic-container-home' : 'exit-fish-pic-container'
         }
+        style={reply ? {justifyContent: 'flex-start'} : {}}
       >
         {' '}
         {!isHome && !reply ? (

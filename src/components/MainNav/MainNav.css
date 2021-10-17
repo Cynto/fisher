@@ -11,7 +11,7 @@
   margin-top: 30px;
   margin-right: 15px;
 }
-.main-nav i { 
+.main-nav i {
   margin-bottom: 25px;
   font-size: 35px;
   cursor: pointer;
@@ -21,4 +21,26 @@
 }
 .orange-hover:hover {
   color: rgb(236, 154, 0);
+}
+
+@media only screen and (max-width: 600px) {
+  .main-nav-container {
+    flex-direction: row;
+    width: 100vw;
+    height: 50px;
+    top: 0;
+    z-index: 1000;
+  }
+  .main-nav {
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 100%;
+    background: white;
+    position: relative;
+    margin-right: 0;
+   
+    border-bottom: 1px solid grey;
+
+  }
 }

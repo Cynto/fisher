@@ -10,7 +10,7 @@ import {
   getDoc,
 } from 'firebase/firestore';
 import uniqid from 'uniqid';
-import { db } from '../../Firebase';
+import { db, auth } from '../../Firebase';
 import './DetailedFish.css';
 import DetailedButtons from './DetailedButtons/DetailedButtons';
 import ReplyPrompt from '../ReplyPrompt/ReplyPrompt';
@@ -104,11 +104,13 @@ function DetailedFish(props: any) {
           ))
         : null}
       <div className="detailed-profile-name-container">
-        <img
-          src={profile.profilePic}
-          alt="profile"
-          className="detailed-profile-pic"
-        />
+        <Link to={`/${username}`} style={{ textDecoration: 'none' }}>
+          <img
+            src={profile.profilePic}
+            alt="profile"
+            className="detailed-profile-pic"
+          />
+        </Link>
         <Link to={`/${username}`} style={{ textDecoration: 'none' }}>
           <div className="detailed-name-username-container">
             <h4>{profile.name}</h4>
@@ -142,23 +144,29 @@ function DetailedFish(props: any) {
         fishObject={fishObject}
         setUserObjectFunc={setUserObjectFunc}
       />
-      <div
-        className="replying-to-container"
-        style={{ marginTop: '30px', marginLeft: '65px' }}
-      >
-        <p>Replying to</p>
-        <p style={{ color: 'orange', marginLeft: '5px' }}>
-          @{fishObject.username}
-        </p>
-      </div>
-      <SendFishInner
-        reply
-        isHome
-        userObject={userObject}
-        setUserObjectFunc={setUserObjectFunc}
-        fishObject={fishObject}
-        getFish={getFish}
-      />
+
+      {auth.currentUser ? (
+        <div>
+          <div
+            className="replying-to-container"
+            style={{ marginTop: '30px', marginLeft: '65px' }}
+          >
+            <p>Replying to</p>
+            <p style={{ color: 'orange', marginLeft: '5px' }}>
+              @{fishObject.username}
+            </p>
+          </div>
+          <SendFishInner
+            reply
+            isHome
+            userObject={userObject}
+            setUserObjectFunc={setUserObjectFunc}
+            fishObject={fishObject}
+            getFish={getFish}
+          />
+        </div>
+      ) : null}
+
       <CommentsContainer
         getFish={getFish}
         userObject={userObject}

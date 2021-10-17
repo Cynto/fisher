@@ -10,3 +10,8 @@
   width: 598px;
 }
 
+@media only screen and (max-width: 600px) {
+  .profile-inner {
+    width: 400px;
+  }
+}

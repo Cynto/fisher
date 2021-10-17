@@ -12,6 +12,7 @@ function SignOutPrompt(props: any) {
     signOut(auth)
       .then(() => {
         history.push('/login');
+        setSignOutPrompt(false)
       })
       .catch((error) => {
         console.log(error);

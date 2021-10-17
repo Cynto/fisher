@@ -206,3 +206,18 @@ textarea:focus {
   background: rgb(37, 37, 37);
 
 }
+
+@media only screen and (max-width: 600px) {
+  .edit-profile-container {
+    width: 350px;
+  }
+  .edit-banner-container {
+
+  }
+  .grey-div-banner {
+    width: 100%;
+  }
+  .edit-banner-container img {
+    width: 100%;
+  }
+ }

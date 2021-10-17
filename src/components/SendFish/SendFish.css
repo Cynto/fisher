@@ -147,3 +147,17 @@
 .text-area-home {
 
 }
+@media only screen and (max-width: 600px) {
+  .send-fish-inner-container {
+    width: 350px;
+  }
+  .send-fish-inner-absolute-container {
+    width: 350px;
+  }
+  .text-area-home {
+    width: 250px;
+  }
+  .text-area-absolute {
+    width: 250px;
+  }
+}

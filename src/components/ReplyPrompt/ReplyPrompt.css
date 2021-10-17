@@ -43,3 +43,8 @@
   color: rgb(83, 100, 113);
 
 }
+@media only screen and (max-width: 600px) {
+  .send-reply-prompt-container {
+    width: 350px;
+  }
+ }
