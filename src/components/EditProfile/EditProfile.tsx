@@ -1,16 +1,18 @@
-import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import { storage, db } from '../../Firebase';
 import './EditProfile.css';
 
 function EditProfile(props: any) {
-  const { profile, setEditProfile, setProfileArray } = props;
+  const { profile, setEditProfile, setProfileArray, userObject } = props;
   const bannerRef = useRef(document.createElement('input'));
   const profilePicRef = useRef(document.createElement('input'));
   const nameRef = useRef(document.createElement('input'));
   const bioRef = useRef(document.createElement('textarea'));
+
+  const history = useHistory();
 
   const changeURL = async (bannerOrProfile: string, url: string) => {
     const userRef = doc(db, 'users', profile.uid);
@@ -24,11 +26,11 @@ function EditProfile(props: any) {
       });
     }
     const userDoc = await getDoc(doc(db, 'users', profile.uid));
-    const userObject = userDoc.data();
+    const newUserObject = userDoc.data();
     setProfileArray((oldArray: any[]) =>
       oldArray.map((profileObject) => {
         if (profileObject.uid === profile.uid) {
-          return userObject;
+          return newUserObject;
         }
         return profileObject;
       }),
@@ -65,6 +67,11 @@ function EditProfile(props: any) {
       }
     }
   };
+  useEffect(() => {
+    if (userObject?.username !== profile.username) {
+      history.push(`/${profile.username}`);
+    }
+  }, []);
 
   const handleFormSubmit = async () => {
     const name = nameRef.current.value;
@@ -81,11 +88,11 @@ function EditProfile(props: any) {
       });
     }
     const userDoc = await getDoc(doc(db, 'users', profile.uid));
-    const userObject = userDoc.data();
+    const newUserObject = userDoc.data();
     setProfileArray((oldArray: any[]) =>
       oldArray.map((profileObject) => {
         if (profileObject.uid === profile.uid) {
-          return userObject;
+          return newUserObject;
         }
         return profileObject;
       }),

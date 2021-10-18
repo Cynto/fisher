@@ -30,6 +30,8 @@
     height: 50px;
     top: 0;
     z-index: 1000;
+    position: relative;
+    align-items: flex-end;
   }
   .main-nav {
     flex-direction: row;
@@ -39,8 +41,10 @@
     background: white;
     position: relative;
     margin-right: 0;
-   
+    align-items: center;
     border-bottom: 1px solid grey;
-
+  }
+  .main-nav i {
+    margin-bottom: 0;
   }
 }

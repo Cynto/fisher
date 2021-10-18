@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getDoc, doc } from 'firebase/firestore';
 import uniqid from 'uniqid';
-
 import './ProfileFish.css';
 import { db } from '../../Firebase';
 import SingleFish from '../SingleFish/SingleFish';
@@ -40,7 +39,8 @@ function ProfileFish(props: any) {
 
   useEffect(() => {
     fillProfileFishArray();
-  }, [profileArray]);
+  }, [profileArray, profile]);
+  
   return (
     <div className="all-fish-container">
       {profileFishArray.length >= 1

@@ -39,7 +39,8 @@ function ProfileFishAndReplies(props: any) {
 
   useEffect(() => {
     fillProfileFishArray();
-  }, [profileArray]);
+  }, [profileArray, profile]);
+  
   return (
     <div className="all-fish-container">
       {profileFishArray.length >= 1

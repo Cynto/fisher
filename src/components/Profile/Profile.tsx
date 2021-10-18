@@ -28,11 +28,13 @@ function Profile(props: any) {
   const [profileDoesExist, setProfileDoesExist] = useState(true);
 
   const { username } = useParams<{ username: string }>();
+  
 
   const fillProfile = () => {
     const indexOfProfile = profileArray.findIndex(
       (element: any) => element.usernameLower === username.toLowerCase(),
     );
+
     if (indexOfProfile !== -1) {
       setProfile(profileArray[indexOfProfile]);
       setProfileIsSet(true);
@@ -45,6 +47,9 @@ function Profile(props: any) {
   useEffect(() => {
     fillProfile();
   }, [profileArray]);
+  useEffect(() => {
+    fillProfile();
+  }, [username]);
 
   if (profileIsSet) {
     return (
@@ -96,15 +101,14 @@ function Profile(props: any) {
             <Route path="/:username/banner">
               <BigBanner profile={profile} />
             </Route>
-            {userObject.username === profile.username ? (
-              <Route path="/:username/edit_profile">
-                <EditProfile
-                  profileArray={profileArray}
-                  setProfileArray={setProfileArray}
-                  profile={profile}
-                />
-              </Route>
-            ) : null}
+
+            <Route path="/:username/edit_profile">
+              <EditProfile
+                profileArray={profileArray}
+                setProfileArray={setProfileArray}
+                profile={profile}
+              />
+            </Route>
           </div>
         </div>
       </div>

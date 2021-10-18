@@ -13,12 +13,18 @@ code {
 }
 .App {
   display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.main-content {
+  display: flex;
   justify-content: center;
+  flex: 1;
 }
 
 @media only screen and (max-width: 600px) {
-  .App {
+  .main-content {
     flex-direction: column;
-    row-gap: 10px;
+    
   }
 }
