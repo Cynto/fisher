@@ -10,10 +10,10 @@ import {
   getDocs,
   collection,
 } from 'firebase/firestore';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../../Firebase';
 
-function CreateAccount(props: any) {
+const CreateAccount = (props: any) => {
   const nameRef = useRef(document.createElement('input'));
   const usernameRef = useRef(document.createElement('input'));
   const emailRef = useRef(document.createElement('input'));
@@ -24,7 +24,7 @@ function CreateAccount(props: any) {
   const [differentPassword, setDifferentPassword] = useState(false);
   const [usernameTaken, setUsernameTaken] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleCreateAccount = async () => {
     const name = nameRef.current.value;
@@ -68,7 +68,7 @@ function CreateAccount(props: any) {
               uid: user.uid,
               createdAt: time,
             });
-            history.push('/');
+            navigate('/');
           })
           .catch((error) => {
             if (error.code === 'auth/email-already-in-use') {
@@ -205,6 +205,6 @@ function CreateAccount(props: any) {
       </div>
     </div>
   );
-}
+};
 
 export default CreateAccount;

@@ -1,12 +1,24 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './BigProfilePic.css';
 
-function BigProfilePic(props: any) {
+const BigProfilePic = (props: any) => {
   const { profile } = props;
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
-    <div role="link" tabIndex={0} className="absolute-background-div" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'rgba(38, 30, 29, 0.9)'}} onKeyDown={() => history.push(`/${profile.username}`)} onClick={() => history.push(`/${profile.username}`)}>
+    <div
+      role="link"
+      tabIndex={0}
+      className="absolute-background-div"
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        background: 'rgba(38, 30, 29, 0.9)',
+      }}
+      onKeyDown={() => navigate(`/${profile.username}`)}
+      onClick={() => navigate(`/${profile.username}`)}
+    >
       <div className="big-profile-pic-container">
         <img
           className="big-profile-pic"
@@ -16,6 +28,6 @@ function BigProfilePic(props: any) {
       </div>
     </div>
   );
-}
+};
 
 export default BigProfilePic;

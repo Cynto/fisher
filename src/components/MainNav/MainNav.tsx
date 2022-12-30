@@ -6,7 +6,7 @@ import SendFish from '../SendFish/SendFish';
 
 import './MainNav.css';
 
-function MainNav(props: any) {
+const MainNav = (props: any) => {
   const { userObject, setUserObjectFunc, fillProfileArray } = props;
   const [signOutPrompt, setSignOutPrompt] = useState(false);
   const [sendFish, setSendFish] = useState(false);

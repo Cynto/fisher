@@ -1,12 +1,16 @@
 import React from 'react';
 
-
 import './SendFish.css';
 import SendFishInner from '../SendFishInner/SendFishInner';
 
-function SendFish(props: any) {
-  const { isHome, userObject, setUserObjectFunc, setSendFish, fillProfileArray} = props;
-  
+const SendFish = (props: any) => {
+  const {
+    isHome,
+    userObject,
+    setUserObjectFunc,
+    setSendFish,
+    fillProfileArray,
+  } = props;
 
   return (
     <div className={isHome ? '' : 'absolute-background-div'}>
@@ -15,10 +19,17 @@ function SendFish(props: any) {
           isHome ? 'send-fish-normal-container' : 'send-fish-absolute-container'
         }
       >
-        <SendFishInner isHome={isHome} userObject={userObject} setUserObjectFunc={setUserObjectFunc} setSendFish={setSendFish} fillProfileArray={fillProfileArray} reply={false}/>
+        <SendFishInner
+          isHome={isHome}
+          userObject={userObject}
+          setUserObjectFunc={setUserObjectFunc}
+          setSendFish={setSendFish}
+          fillProfileArray={fillProfileArray}
+          reply={false}
+        />
       </div>
     </div>
   );
-}
+};
 
 export default SendFish;

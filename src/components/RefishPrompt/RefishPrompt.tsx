@@ -3,9 +3,14 @@ import { getDoc, doc, updateDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../../Firebase';
 import './RefishPrompt.css';
 
-function RefishPrompt(props: any) {
-  const { userObject, fishObject, setRefishPrompt, fillProfileFishArray, getFish } =
-    props;
+const RefishPrompt = (props: any) => {
+  const {
+    userObject,
+    fishObject,
+    setRefishPrompt,
+    fillProfileFishArray,
+    getFish,
+  } = props;
 
   const handleRefish = async () => {
     const fishRef = doc(db, 'fish', fishObject.fishID);
@@ -26,7 +31,7 @@ function RefishPrompt(props: any) {
         refish: true,
       };
       const newUserObject = userObject;
-      
+
       newUserObject.fish.push(newFishRefObject);
       await updateDoc(doc(db, 'users', userObject.uid), {
         fish: newUserObject.fish,
@@ -34,7 +39,7 @@ function RefishPrompt(props: any) {
     }
     if (fillProfileFishArray) {
       await fillProfileFishArray();
-    }else if(getFish) {
+    } else if (getFish) {
       getFish();
     }
   };
@@ -82,6 +87,6 @@ function RefishPrompt(props: any) {
       </div>
     </div>
   );
-}
+};
 
 export default RefishPrompt;

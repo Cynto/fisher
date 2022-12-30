@@ -1,21 +1,29 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './BigBanner.css';
 
-function BigBanner(props: any) {
+const BigBanner = (props: any) => {
   const { profile } = props;
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
-    <div role="link" tabIndex={0} className="absolute-background-div" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'rgba(0, 0, 0, 0.9)'}} onKeyDown={() => history.push(`/${profile.username}`)} onClick={() => history.push(`/${profile.username}`)}>
+    <div
+      role="link"
+      tabIndex={0}
+      className="absolute-background-div"
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        background: 'rgba(0, 0, 0, 0.9)',
+      }}
+      onKeyDown={() => navigate(`/${profile.username}`)}
+      onClick={() => navigate(`/${profile.username}`)}
+    >
       <div className="big-banner-container">
-        <img
-          className="big-banner"
-          src={profile.bannerPic}
-          alt="profile"
-        />
+        <img className="big-banner" src={profile.bannerPic} alt="profile" />
       </div>
     </div>
   );
-}
+};
 
 export default BigBanner;

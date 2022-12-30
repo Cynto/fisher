@@ -2,8 +2,8 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import './ProfileDoesntExist.css';
 
-function ProfileDoesntExist() {
-  const { username } = useParams<{ username: string }>();
+const ProfileDoesntExist = () => {
+  const { username } = useParams() as { username: string };
 
   return (
     <div className="total-profile-page">

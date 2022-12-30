@@ -5,7 +5,7 @@ import RefishPrompt from '../RefishPrompt/RefishPrompt';
 import UnrefishPrompt from '../UnrefishPrompt/UnrefishPrompt';
 import './ProfileFishStats.css';
 
-function ProfileFishStats(props: any) {
+const ProfileFishStats = (props: any) => {
   const { item, userObject, setUserObjectFunc, fillProfileFishArray } = props;
   const [likeColorClass, setLikeColorClass] = useState(
     'likes-symbol-container',
@@ -132,6 +132,6 @@ function ProfileFishStats(props: any) {
       </div>
     </div>
   );
-}
+};
 
 export default ProfileFishStats;

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './TopProfile.css';
 
-function TopProfile(props: any) {
+const TopProfile = (props: any) => {
   const { profile } = props;
-  const history = useHistory()
+  const navigate = useNavigate()
   return (
     <div className="profile-top-container">
       <div className="profile-top">
@@ -26,8 +26,8 @@ function TopProfile(props: any) {
         className="profile-banner"
         src={profile.bannerPic}
         alt="profile-banner"
-        onKeyDown={() => history.push(`/${profile.username}/banner`)}
-        onClick={() => history.push(`/${profile.username}/banner`)}
+        onKeyDown={() => navigate(`/${profile.username}/banner`)}
+        onClick={() => navigate(`/${profile.username}/banner`)}
       />
     </div>
   );

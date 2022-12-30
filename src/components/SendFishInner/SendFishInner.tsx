@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import uniqid from 'uniqid';
 import {
@@ -11,7 +11,7 @@ import {
 import { setDoc, doc, Timestamp, getDoc } from 'firebase/firestore';
 import { storage, db } from '../../Firebase';
 
-function SendFishInner(props: any) {
+const SendFishInner = (props: any) => {
   const {
     userObject,
     setUserObjectFunc,
@@ -29,7 +29,7 @@ function SendFishInner(props: any) {
   const [tempImgLink, setTempImgLink] = useState('');
   const [ID, setID] = useState('');
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleImageUpload = async (temp: boolean) => {
     if (fishPicRef.current.files) {
@@ -154,7 +154,7 @@ function SendFishInner(props: any) {
         className={
           isHome ? 'exit-fish-pic-container-home' : 'exit-fish-pic-container'
         }
-        style={reply ? {justifyContent: 'flex-start'} : {}}
+        style={reply ? { justifyContent: 'flex-start' } : {}}
       >
         {' '}
         {!isHome && !reply ? (
@@ -213,9 +213,7 @@ function SendFishInner(props: any) {
               }
 
               if (reply) {
-                history.push(
-                  `/${fishObject.username}/fish/${fishObject.fishID}`,
-                );
+                navigate(`/${fishObject.username}/fish/${fishObject.fishID}`);
               } else if (!reply && !isHome) {
                 setSendFish(false);
               }
@@ -227,6 +225,6 @@ function SendFishInner(props: any) {
       </div>
     </div>
   );
-}
+};
 
 export default SendFishInner;

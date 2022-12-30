@@ -6,7 +6,7 @@ import createTimeStamp from '../../api/CreateTimestamp';
 
 import SingleFish from '../SingleFish/SingleFish';
 
-function CommentsContainer(props: any) {
+const CommentsContainer = (props: any) => {
   const { userObject, fishObject, setUserObjectFunc } = props;
   const [commentsArray, setCommentsArray] = useState<any>([]);
 

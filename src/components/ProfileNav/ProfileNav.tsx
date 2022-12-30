@@ -1,46 +1,49 @@
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './ProfileNav.css';
 
-function ProfileNav(props: any) {
+const ProfileNav = (props: any) => {
   const { profile } = props;
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
     <nav className="profile-nav">
-      <NavLink
-        className="profile-link"
-        exact
+      <NavLink end
         to={`/${profile.username}`}
-        activeClassName="profile-link-selected"
+        className={({isActive}) =>
+          isActive ? 'profile-link-selected' : 'profile-link'
+        }
         onClick={() => {
-          history.push('/login');
+          navigate('/login');
         }}
       >
         Fish
       </NavLink>
       <NavLink
         to={`/${profile.username}/with_replies`}
-        activeClassName="profile-link-selected"
-        className="profile-link"
+        className={({isActive}) =>
+          isActive ? 'profile-link-selected' : 'profile-link'
+        }
       >
         Fish & replies
       </NavLink>
       <NavLink
         to={`/${profile.username}/media`}
-        activeClassName="profile-link-selected"
-        className="profile-link"
+        className={({isActive}) =>
+          isActive ? 'profile-link-selected' : 'profile-link'
+        }
       >
         Media
       </NavLink>
       <NavLink
         to={`/${profile.username}/likes`}
-        activeClassName="profile-link-selected"
-        className="profile-link"
+        className={({isActive}) =>
+          isActive ? 'profile-link-selected' : 'profile-link'
+        }
       >
         Likes
       </NavLink>
     </nav>
   );
-}
+};
 
 export default ProfileNav;

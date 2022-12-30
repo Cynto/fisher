@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import format from 'date-fns/format';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { doc, updateDoc, getDoc, setDoc } from 'firebase/firestore';
 
 import { auth, db } from '../../Firebase';
 import './InfoProfile.css';
 
-function InfoProfile(props: any) {
+const InfoProfile = (props: any) => {
   const { profile } = props;
   const [button, setButton] = useState(<button type="button">Follow</button>);
 
   const createdAt = format(profile.createdAt.toDate(), 'MMMM y');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleFollow = async () => {
     if (auth.currentUser) {
@@ -95,7 +95,7 @@ function InfoProfile(props: any) {
               setButton(following);
             }
           : () => {
-              history.push('/login');
+              navigate('/login');
             }
       }
     >
@@ -139,7 +139,7 @@ function InfoProfile(props: any) {
     <div className="profile-info-container">
       <div className="left-info-container">
         <div className="profile-pic-container">
-          <img role="presentation" src={profile.profilePic} alt="profile-pic" onKeyDown={() => history.push(`/${profile.username}/photo`)} onClick={() => history.push(`/${profile.username}/photo`)}/>
+          <img role="presentation" src={profile.profilePic} alt="profile-pic" onKeyDown={() => navigate(`/${profile.username}/photo`)} onClick={() => navigate(`/${profile.username}/photo`)}/>
         </div>
         <div className="name-username-container">
           <h3>{profile.name}</h3>

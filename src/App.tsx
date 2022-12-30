@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { query, getDocs, collection, getDoc, doc } from 'firebase/firestore';
 import { auth, db } from './Firebase';
 
@@ -11,7 +11,7 @@ import DetailedFish from './components/DetailedFish/DetailedFish';
 import HomePage from './components/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
 
-function App() {
+const App = () => {
   const [profileArray, setProfileArray] = useState([]);
   const [userObject, setUserObject] = useState({ profilePic: '', likes: [] });
 
@@ -41,73 +41,89 @@ function App() {
     });
   }, []);
 
-  
-
   return (
     <Router>
       <div className="App">
-        <div className="main-content">
-          <Switch>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/">
-              <MainNav
-                userObject={userObject}
-                isHome={false}
-                setUserObjectFunc={setUserObjectFunc}
-                fillProfileArray={fillProfileArray}
-              />
-              <HomePage
-                userObject={userObject}
-                setUserObjectFunc={setUserObjectFunc}
-              />
-            </Route>
-            <Route exact path="/home">
-              <MainNav
-                userObject={userObject}
-                isHome={false}
-                setUserObjectFunc={setUserObjectFunc}
-                fillProfileArray={fillProfileArray}
-              />
-              <HomePage
-                userObject={userObject}
-                setUserObjectFunc={setUserObjectFunc}
-              />
-            </Route>
-            <Route path="/:username/fish/:fishID">
-              <MainNav
-                userObject={userObject}
-                isHome={false}
-                setUserObjectFunc={setUserObjectFunc}
-                fillProfileArray={fillProfileArray}
-              />
-              <DetailedFish
-                userObject={userObject}
-                setUserObjectFunc={setUserObjectFunc}
-              />
-            </Route>
-            <Route path="/:username">
-              <MainNav
-                userObject={userObject}
-                isHome={false}
-                setUserObjectFunc={setUserObjectFunc}
-                fillProfileArray={fillProfileArray}
-              />
-              <Profile
-                profileArray={profileArray}
-                setProfileArray={setProfileArray}
-                userObject={userObject}
-                setUserObjectFunc={setUserObjectFunc}
-                fillProfileArray={fillProfileArray}
-              />
-            </Route>
-          </Switch>
-        </div>
-        <Footer />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+
+          <Route
+            path="/"
+            element={
+              <div className="main-content">
+                <MainNav
+                  userObject={userObject}
+                  isHome={false}
+                  setUserObjectFunc={setUserObjectFunc}
+                  fillProfileArray={fillProfileArray}
+                />
+                <HomePage
+                  userObject={userObject}
+                  setUserObjectFunc={setUserObjectFunc}
+                />
+              </div>
+            }
+          />
+          <Route
+            path="/home"
+            element={
+              <div className="main-content">
+                <MainNav
+                  userObject={userObject}
+                  isHome={false}
+                  setUserObjectFunc={setUserObjectFunc}
+                  fillProfileArray={fillProfileArray}
+                />
+                <HomePage
+                  userObject={userObject}
+                  setUserObjectFunc={setUserObjectFunc}
+                />
+              </div>
+            }
+          />
+
+          <Route
+            path="/:username/fish/:fishID"
+            element={
+              <div className="main-content">
+                <MainNav
+                  userObject={userObject}
+                  isHome={false}
+                  setUserObjectFunc={setUserObjectFunc}
+                  fillProfileArray={fillProfileArray}
+                />
+                <DetailedFish
+                  userObject={userObject}
+                  setUserObjectFunc={setUserObjectFunc}
+                />
+              </div>
+            }
+          />
+          <Route
+            path="/:username/*"
+            element={
+              <div className="main-content">
+                <MainNav
+                  userObject={userObject}
+                  isHome={false}
+                  setUserObjectFunc={setUserObjectFunc}
+                  fillProfileArray={fillProfileArray}
+                />
+                <Profile
+                  profileArray={profileArray}
+                  setProfileArray={setProfileArray}
+                  userObject={userObject}
+                  setUserObjectFunc={setUserObjectFunc}
+                  fillProfileArray={fillProfileArray}
+                />
+              </div>
+            }
+          />
+        </Routes>
       </div>
+      <Footer />
     </Router>
   );
-}
+};
 
 export default App;

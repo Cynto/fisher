@@ -2,9 +2,15 @@ import React from 'react';
 import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../Firebase';
 
-function UnrefishPrompt(props: any) {
-  const { userObject, fishObject, setUnrefishPrompt, setRefishColorClass, fillProfileFishArray, getFish } =
-    props;
+const UnrefishPrompt = (props: any) => {
+  const {
+    userObject,
+    fishObject,
+    setUnrefishPrompt,
+    setRefishColorClass,
+    fillProfileFishArray,
+    getFish,
+  } = props;
 
   const handleUnrefish = async () => {
     const fishRef = doc(db, 'fish', fishObject.fishID);
@@ -42,13 +48,25 @@ function UnrefishPrompt(props: any) {
     }
     if (fillProfileFishArray) {
       await fillProfileFishArray();
-    }else if(getFish) {
+    } else if (getFish) {
       await getFish();
     }
   };
   return (
-    <div role="link" tabIndex={0} onKeyDown={(e) => e.preventDefault()} onClick={(e) => e.preventDefault()} className="absolute-background-div">
-      <div role="link" tabIndex={0} onKeyDown={(e) => e.preventDefault()} onClick={(e) => e.preventDefault()} className="refish-prompt-container">
+    <div
+      role="link"
+      tabIndex={0}
+      onKeyDown={(e) => e.preventDefault()}
+      onClick={(e) => e.preventDefault()}
+      className="absolute-background-div"
+    >
+      <div
+        role="link"
+        tabIndex={0}
+        onKeyDown={(e) => e.preventDefault()}
+        onClick={(e) => e.preventDefault()}
+        className="refish-prompt-container"
+      >
         <button
           type="button"
           className="prompt-log-out-button"
@@ -63,13 +81,16 @@ function UnrefishPrompt(props: any) {
         <button
           type="button"
           className="prompt-cancel-button"
-          onClick={(e) => {e.preventDefault(); setUnrefishPrompt(false)}}
+          onClick={(e) => {
+            e.preventDefault();
+            setUnrefishPrompt(false);
+          }}
         >
           Cancel{' '}
         </button>
       </div>
     </div>
   );
-}
+};
 
 export default UnrefishPrompt;

@@ -6,7 +6,7 @@ import { db } from '../../Firebase';
 import SingleFish from '../SingleFish/SingleFish';
 import createTimeStamp from '../../api/CreateTimestamp';
 
-function ProfileMedia(props: any) {
+const ProfileMedia = (props: any) => {
   const { profile, userObject, setUserObjectFunc, profileArray } = props;
   // eslint-disable-next-line no-unused-vars
   const [profileFishArray, setProfileFishArray] = useState<any[]>([]);
@@ -15,7 +15,6 @@ function ProfileMedia(props: any) {
     const newArray: any[] = [];
     const updatedDoc: any = await getDoc(doc(db, 'users', profile.uid));
     const updatedProfile = updatedDoc.data();
-    
 
     await Promise.all(
       updatedProfile.fish.map(async (item: any, index: number) => {
@@ -37,7 +36,7 @@ function ProfileMedia(props: any) {
     newArray.sort(
       (a: any, b: any) => a.fishedAt.toDate() - b.fishedAt.toDate(),
     );
-    
+
     newArray.reverse();
     console.log(newArray);
 
@@ -63,6 +62,6 @@ function ProfileMedia(props: any) {
         : null}
     </div>
   );
-}
+};
 
 export default ProfileMedia;

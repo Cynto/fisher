@@ -16,7 +16,7 @@ import {
 import { db, storage } from '../../Firebase';
 import './DeleteFishPrompt.css';
 
-function DeleteFishPrompt(props: any) {
+const DeleteFishPrompt = (props: any) => {
   const {
     userObject,
     item,

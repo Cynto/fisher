@@ -1,18 +1,18 @@
 import React from 'react';
 import { signOut } from 'firebase/auth';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../../Firebase';
 
 import './SignOutPrompt.css';
 
-function SignOutPrompt(props: any) {
-  const {setSignOutPrompt} = props;
-  const history = useHistory();
+const SignOutPrompt = (props: any) => {
+  const { setSignOutPrompt } = props;
+  const navigate = useNavigate();
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        history.push('/login');
-        setSignOutPrompt(false)
+        navigate('/login');
+        setSignOutPrompt(false);
       })
       .catch((error) => {
         console.log(error);
@@ -29,12 +29,16 @@ function SignOutPrompt(props: any) {
         >
           Log out
         </button>
-        <button type="button" className="prompt-cancel-button" onClick={() => setSignOutPrompt(false)}>
+        <button
+          type="button"
+          className="prompt-cancel-button"
+          onClick={() => setSignOutPrompt(false)}
+        >
           Cancel
         </button>
       </div>
     </div>
   );
-}
+};
 
 export default SignOutPrompt;

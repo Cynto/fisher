@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getDoc, doc } from 'firebase/firestore';
-import uniqid from 'uniqid'
+import uniqid from 'uniqid';
 import { db } from '../../Firebase';
 import createTimeStamp from '../../api/CreateTimestamp';
 import SingleFish from '../SingleFish/SingleFish';
 
-function ProfileLikes(props: any) {
+const ProfileLikes = (props: any) => {
   // eslint-disable-next-line no-unused-vars
   const { profile, userObject, setUserObjectFunc, profileArray } = props;
   // eslint-disable-next-line no-unused-vars
@@ -56,6 +56,6 @@ function ProfileLikes(props: any) {
         : null}
     </div>
   );
-}
+};
 
 export default ProfileLikes;

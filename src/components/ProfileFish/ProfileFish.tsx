@@ -6,7 +6,7 @@ import { db } from '../../Firebase';
 import SingleFish from '../SingleFish/SingleFish';
 import createTimeStamp from '../../api/CreateTimestamp';
 
-function ProfileFish(props: any) {
+const ProfileFish = (props: any) => {
   const { profile, userObject, setUserObjectFunc, profileArray } = props;
   // eslint-disable-next-line no-unused-vars
   const [profileFishArray, setProfileFishArray] = useState<any[]>([]);

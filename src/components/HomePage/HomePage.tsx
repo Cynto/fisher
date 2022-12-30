@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import uniqid from 'uniqid';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   getDoc,
   doc,
@@ -14,11 +14,11 @@ import SendFishInner from '../SendFishInner/SendFishInner';
 import createTimeStamp from '../../api/CreateTimestamp';
 import SingleFish from '../SingleFish/SingleFish';
 
-function HomePage(props: any) {
+const HomePage = (props: any) => {
   const { userObject, setUserObjectFunc } = props;
   const [homePageFishArray, setHomePageFishArray] = useState<any[]>([]);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const fillHomePageArray = async () => {
     const newArray: any[] = [];
@@ -91,7 +91,7 @@ function HomePage(props: any) {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (!user) {
-        history.push('/login');
+        navigate('/login');
       }
     });
   }, []);

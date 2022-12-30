@@ -1,13 +1,13 @@
 import React from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './ReplyPrompt.css';
 
 import SendFishInner from '../SendFishInner/SendFishInner';
 
-function ReplyPrompt(props: any) {
+const ReplyPrompt = (props: any) => {
   const { userObject, fishObject, setUserObjectFunc } = props;
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <div className="absolute-background-div">
@@ -16,14 +16,17 @@ function ReplyPrompt(props: any) {
           type="button"
           className="exit-fish-button"
           onClick={() =>
-            history.push(`/${fishObject.username}/fish/${fishObject.fishID}`)
+            navigate(`/${fishObject.username}/fish/${fishObject.fishID}`)
           }
         >
           X
         </button>
         <div className="original-fish-total-container">
           <div className="profile-pic-fish-container">
-            <Link to={`/${fishObject.username}`} style={{ textDecoration: 'none' }}>
+            <Link
+              to={`/${fishObject.username}`}
+              style={{ textDecoration: 'none' }}
+            >
               <img
                 src={fishObject.profilePic}
                 className="profile-pic-fish"
@@ -48,7 +51,9 @@ function ReplyPrompt(props: any) {
             </div>
             <div className="replying-to-container">
               <p>Replying to</p>
-              <p style={{color: 'orange', marginLeft: '5px'}}>@{fishObject.username}</p>
+              <p style={{ color: 'orange', marginLeft: '5px' }}>
+                @{fishObject.username}
+              </p>
             </div>
           </div>
         </div>
@@ -62,6 +67,6 @@ function ReplyPrompt(props: any) {
       </div>
     </div>
   );
-}
+};
 
 export default ReplyPrompt;

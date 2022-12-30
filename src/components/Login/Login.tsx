@@ -1,18 +1,18 @@
 import React, { useState, useRef } from 'react';
 import './Login.css';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../Firebase';
 import CreateAccount from '../CreateAccount/CreateAccount';
 
-function Login() {
+const Login = () => {
   const emailRef = useRef(document.createElement('input'));
   const passwordRef = useRef(document.createElement('input'));
   const [hasAccount, setHasAccount] = useState(true);
   const [userNotFound, setUserNotFound] = useState(false);
   const [wrongPassword, setWrongPassword] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const handleLogin = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
@@ -22,7 +22,7 @@ function Login() {
 
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        history.push('/home');
+        navigate('/home');
       })
       .catch((error) => {
         console.log(error.code);
@@ -41,7 +41,11 @@ function Login() {
       className="login-page"
       style={
         !hasAccount
-          ? { backgroundColor: 'rgba(0, 0, 0, 0.4)', minHeight: '125vh', minWidth: '100vw' }
+          ? {
+              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              minHeight: '125vh',
+              minWidth: '100vw',
+            }
           : { backgroundColor: 'white', minHeight: '100vh' }
       }
     >
@@ -67,7 +71,13 @@ function Login() {
           <div className="group">
             <div className="input-container">
               <label htmlFor="email-input">
-                <input className="login-input" id="email-input" ref={emailRef} type="email" required />
+                <input
+                  className="login-input"
+                  id="email-input"
+                  ref={emailRef}
+                  type="email"
+                  required
+                />
                 <div className="border-div" />
 
                 <p>Email</p>
@@ -114,6 +124,6 @@ function Login() {
       </div>
     </div>
   );
-}
+};
 
 export default Login;

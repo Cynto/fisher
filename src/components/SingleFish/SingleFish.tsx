@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ProfileFishStats from '../ProfileFishStats/ProfileFishStats';
 import './SingleFish.css';
 import DeleteFishPrompt from '../DeleteFishPrompt/DeleteFishPrompt';
 
-function SingleFish(props: any) {
+const SingleFish = (props: any) => {
   const {
     reply,
     profile,
@@ -15,7 +15,7 @@ function SingleFish(props: any) {
     fillProfileFishArray,
   } = props;
   const [deletePrompt, setDeletePrompt] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
     <Link
       to={`/${item.username}/fish/${item.fishID}`}
@@ -50,7 +50,7 @@ function SingleFish(props: any) {
               alt="profile"
               onClick={(e) => {
                 e.preventDefault();
-                history.push(`/${item.username}`);
+                navigate(`/${item.username}`);
               }}
             />
           </div>
@@ -80,7 +80,7 @@ function SingleFish(props: any) {
                 }}
                 onClick={(e) => {
                   e.preventDefault();
-                  history.push(`/${item.username}`);
+                  navigate(`/${item.username}`);
                 }}
               >
                 <h4>{item.name}</h4>

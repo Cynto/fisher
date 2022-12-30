@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Route, useParams } from 'react-router-dom';
+import { Route, useParams, Routes } from 'react-router-dom';
 import './Profile.css';
 import TopProfile from '../TopProfile/TopProfile';
 import InfoProfile from '../InfoProfile/InfoProfile';
@@ -14,7 +14,7 @@ import BigBanner from '../BigBanner/BigBanner';
 import ProfileFishAndReplies from '../ProfileFishAndReplies/ProfileFishAndReplies';
 import ProfileMedia from '../ProfileMedia/ProfileMedia';
 
-function Profile(props: any) {
+const Profile = (props: any) => {
   const {
     // eslint-disable-next-line no-unused-vars
     profileArray,
@@ -23,12 +23,11 @@ function Profile(props: any) {
     setUserObjectFunc,
     fillProfileArray,
   } = props;
-  const [profile, setProfile] = useState({ username: '' });
+  const [profile, setProfile] = useState({ username: '', uid: '' });
   const [profileIsSet, setProfileIsSet] = useState(false);
   const [profileDoesExist, setProfileDoesExist] = useState(true);
 
-  const { username } = useParams<{ username: string }>();
-  
+  const { username } = useParams() as { username: string };
 
   const fillProfile = () => {
     const indexOfProfile = profileArray.findIndex(
@@ -59,56 +58,78 @@ function Profile(props: any) {
             <TopProfile profile={profile} />
             <InfoProfile profile={profile} setProfileArray={setProfileArray} />
             <ProfileNav profile={profile} />
-            <Route exact path="/:username">
-              <ProfileFish
-                setUserObjectFunc={setUserObjectFunc}
-                userObject={userObject}
-                profile={profile}
-                fillProfileArray={fillProfileArray}
-                profileArray={profileArray}
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <ProfileFish
+                    setUserObjectFunc={setUserObjectFunc}
+                    userObject={userObject}
+                    profile={profile}
+                    fillProfileArray={fillProfileArray}
+                    profileArray={profileArray}
+                  />
+                }
               />
-            </Route>
-            <Route exact path="/:username/likes">
-              <ProfileLikes
-                setUserObjectFunc={setUserObjectFunc}
-                userObject={userObject}
-                profile={profile}
-                fillProfileArray={fillProfileArray}
-                profileArray={profileArray}
-              />
-            </Route>
-            <Route path="/:username/with_replies">
-              <ProfileFishAndReplies
-                setUserObjectFunc={setUserObjectFunc}
-                userObject={userObject}
-                profile={profile}
-                fillProfileArray={fillProfileArray}
-                profileArray={profileArray}
-              />
-            </Route>
-            <Route path="/:username/media">
-              <ProfileMedia
-                setUserObjectFunc={setUserObjectFunc}
-                userObject={userObject}
-                profile={profile}
-                fillProfileArray={fillProfileArray}
-                profileArray={profileArray}
-              />
-            </Route>
-            <Route path="/:username/photo">
-              <BigProfilePic profile={profile} />
-            </Route>
-            <Route path="/:username/banner">
-              <BigBanner profile={profile} />
-            </Route>
 
-            <Route path="/:username/edit_profile">
-              <EditProfile
-                profileArray={profileArray}
-                setProfileArray={setProfileArray}
-                profile={profile}
+              <Route
+                path="/likes"
+                element={
+                  <ProfileLikes
+                    setUserObjectFunc={setUserObjectFunc}
+                    userObject={userObject}
+                    profile={profile}
+                    fillProfileArray={fillProfileArray}
+                    profileArray={profileArray}
+                  />
+                }
               />
-            </Route>
+              {userObject.uid === profile.uid ? (
+                <Route
+                  path="/with_replies"
+                  element={
+                    <ProfileFishAndReplies
+                      setUserObjectFunc={setUserObjectFunc}
+                      userObject={userObject}
+                      profile={profile}
+                      fillProfileArray={fillProfileArray}
+                      profileArray={profileArray}
+                    />
+                  }
+                />
+              ) : null}
+
+              <Route
+                path="/media"
+                element={
+                  <ProfileMedia
+                    setUserObjectFunc={setUserObjectFunc}
+                    userObject={userObject}
+                    profile={profile}
+                    fillProfileArray={fillProfileArray}
+                    profileArray={profileArray}
+                  />
+                }
+              />
+
+              <Route
+                path="/photo"
+                element={<BigProfilePic profile={profile} />}
+              />
+
+              <Route path="/banner" element={<BigBanner profile={profile} />} />
+
+              <Route
+                path="/edit_profile"
+                element={
+                  <EditProfile
+                    profileArray={profileArray}
+                    setProfileArray={setProfileArray}
+                    profile={profile}
+                  />
+                }
+              />
+            </Routes>
           </div>
         </div>
       </div>
@@ -124,6 +145,6 @@ function Profile(props: any) {
       </div>
     </div>
   );
-}
+};
 
 export default Profile;

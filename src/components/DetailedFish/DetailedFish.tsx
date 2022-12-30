@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
-import { useParams, Link, Route, withRouter } from 'react-router-dom';
+import { useParams, Link, Route, Routes } from 'react-router-dom';
 import {
   collection,
   query,
@@ -19,13 +19,15 @@ import SendFishInner from '../SendFishInner/SendFishInner';
 import createTimeStamp from '../../api/CreateTimestamp';
 import SingleFish from '../SingleFish/SingleFish';
 
-function DetailedFish(props: any) {
+const DetailedFish = (props: any) => {
   const { userObject, setUserObjectFunc } = props;
   const [profile, setProfile] = useState<any>({});
   const [fishObject, setFishObject] = useState<any>({});
   const [originalFishArray, setOriginalFishArray] = useState<any>([]);
-  const { username, fishID } =
-    useParams<{ username: string; fishID: string }>();
+  const { username, fishID } = useParams() as {
+    username: string;
+    fishID: string;
+  };
 
   const getProfile = async () => {
     const q = query(
@@ -173,15 +175,20 @@ function DetailedFish(props: any) {
         fishObject={fishObject}
         setUserObjectFunc={setUserObjectFunc}
       />
-      <Route path="/:username/fish/:fishID/reply">
-        <ReplyPrompt
-          userObject={userObject}
-          fishObject={fishObject}
-          setUserObjectFunc={setUserObjectFunc}
+      <Routes>
+        <Route
+          path="/:username/fish/:fishID/reply"
+          element={
+            <ReplyPrompt
+              userObject={userObject}
+              fishObject={fishObject}
+              setUserObjectFunc={setUserObjectFunc}
+            />
+          }
         />
-      </Route>
+      </Routes>
     </div>
   );
-}
+};
 
-export default withRouter(DetailedFish);
+export default DetailedFish;

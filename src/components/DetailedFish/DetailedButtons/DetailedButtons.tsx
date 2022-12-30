@@ -6,7 +6,7 @@ import RefishPrompt from '../../RefishPrompt/RefishPrompt';
 import './DetailedButtons.css';
 import UnrefishPrompt from '../../UnrefishPrompt/UnrefishPrompt';
 
-function DetailedButtons(props: any) {
+const DetailedButtons = (props: any) => {
   const { userObject, fishObject, setUserObjectFunc, getFish } = props;
   const [likeColorClass, setLikeColorClass] = useState('heart-symbol');
   const [likeNumber, setLikeNumber] = useState(0);
